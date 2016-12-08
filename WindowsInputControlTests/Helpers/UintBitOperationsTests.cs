@@ -120,7 +120,7 @@ namespace WindowsInputControl.Helpers.Tests
             }
 
 
-            //
+            //assert
             Assert.AreEqual(uint.MaxValue,number);
         }
 
