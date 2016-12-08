@@ -20,7 +20,7 @@ namespace WindowsInputControl.Hooks
           
             Contract.Requires(keyboardHandle != null);
             Contract.Requires(!string.IsNullOrEmpty(keyboardIdentifier));
-            Contract.Requires(keyboardIdentifier.Length == 9);
+            Contract.Requires(keyboardIdentifier.Length == 8);
 
             _keyboardHandle = keyboardHandle;
             _keyboardIdentifier = keyboardIdentifier;

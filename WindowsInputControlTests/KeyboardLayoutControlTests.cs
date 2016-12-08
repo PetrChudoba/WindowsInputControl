@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsInputControl.Hooks.Tests
 {
@@ -15,28 +16,21 @@ namespace WindowsInputControl.Hooks.Tests
         [TestMethod()]
         public void GetAllInstalledLayoutsTest()
         {
+            //arrange
+            var inputLanguages = InputLanguage.InstalledInputLanguages;
+
             KeyboardLayoutControl klc = new KeyboardLayoutControl();
 
+
+
+            //act
             var layout = klc.GetAllInstalledLayouts();
 
-            foreach (var keyboardLayout in layout)
-            {
-                Debug.WriteLine(keyboardLayout.Identifier + " " + keyboardLayout.Name);
-            }
-
-            Assert.AreEqual(3, layout.Count());
+            
+            //assert
+            Assert.AreEqual(inputLanguages.Count, layout.Count());
         }
 
-        [TestMethod()]
-        public void GetActiveLayoutIdentifierTest()
-        {
-            Assert.Fail();
-        }
 
-        [TestMethod()]
-        public void GetActiveLayoutHandleTest()
-        {
-            Assert.Fail();
-        }
     }
 }
