@@ -8,37 +8,28 @@ namespace WindowsInputControl.Hooks
     /// <summary>
     /// 
     /// </summary>
-    public class KeyboardControl
+    public class KeyboardLayoutControl
     {
 
-        private IntPtr GetKeyboard(string keyboardIdentifier)
-        {
-            return NativeKeyboardMethods.LoadKeyboardLayout(keyboardIdentifier, 0x00000080);
-        }
+ 
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Keyboards> GetKeyboardList()
+        public IEnumerable<IKeyboardLayout> GetKeyboardLayouts()
         {
-            List<Keyboards> keyboards = new List<Keyboards>();
+            List<IKeyboardLayout> keyboards = new List<IKeyboardLayout>();
 
             int nElements = NativeKeyboardMethods.GetKeyboardLayoutList(0, null);
             IntPtr[] ids = new IntPtr[nElements];
             NativeKeyboardMethods.GetKeyboardLayoutList(ids.Length, ids);
 
-            KeyboardLayoutNames layoutNames = new KeyboardLayoutNames();
-
             
 
             foreach(var khl in ids)
             {
-                string keyboardIdent = GetKeyboardIdentifier(khl);
-
-                string keybodName = layoutNames.GetLayoutName(keyboardIdent);
-
-                Debug.WriteLine(keyboardIdent + " " + keybodName);
+                string keyboardIdentifier = GetKeyboardIdentifier(khl);
 
 
             }
@@ -102,7 +93,16 @@ namespace WindowsInputControl.Hooks
 
     }
 
-    public class Keyboards
+
+
+
+    public interface IKeyboardLayout
     {
+    }
+
+
+    public class KeyboardLayout : IKeyboardLayout
+    {
+        
     }
 }

@@ -48,12 +48,7 @@ namespace WindowsInputControl
             _inputSimulator = inputSimulator;
             _messageDispatcher = messageDispatcher;
         }
-
-        /// <summary>
-        /// Gets the <see cref="IMouseSimulator"/> instance for simulating Mouse input.
-        /// </summary>
-        /// <value>The <see cref="IMouseSimulator"/> instance.</value>
-        public IMouseSimulator Mouse { get { return _inputSimulator.Mouse; } }
+        
 
         private void ModifiersDown(InputBuilder builder, IEnumerable<VirtualKeyCode> modifierKeyCodes)
         {

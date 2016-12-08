@@ -45,7 +45,7 @@
     <Compile Include="IKeyboardLayoutNames.cs" />
     <Compile Include="Hooks\KeyboardHook.cs" />
     <Compile Include="Hooks\NativeWindowsHookMethods.cs" />
-    <Compile Include="Hooks\KeyboardControl.cs" />
+    <Compile Include="Hooks\KeyboardLayoutControl.cs" />
     <Compile Include="Hooks\KeyboardLogger.cs" />
     <Compile Include="KeyboardLayoutNames.cs" />
     <Compile Include="Hooks\KeyEventType.cs" />

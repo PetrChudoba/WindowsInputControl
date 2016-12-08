@@ -9,11 +9,7 @@ namespace WindowsInputControl
     /// </summary>
     public interface IKeyboardSimulator
     {
-        /// <summary>
-        /// Gets the <see cref="IMouseSimulator"/> instance for simulating Mouse input.
-        /// </summary>
-        /// <value>The <see cref="IMouseSimulator"/> instance.</value>
-        IMouseSimulator Mouse { get; }
+       
 
         /// <summary>
         /// Simulates the key down gesture for the specified key.

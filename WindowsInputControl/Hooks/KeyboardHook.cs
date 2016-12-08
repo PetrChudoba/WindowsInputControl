@@ -9,9 +9,12 @@ using WindowsInputControl.Native;
 
 namespace WindowsInputControl.Hooks
 {
-    
+    //https://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx
+
+
+
     [StructLayout(LayoutKind.Sequential)]
-    public class KeyboardHook
+    public struct KeyboardHook
     {
         /*
         DWORD vkCode;

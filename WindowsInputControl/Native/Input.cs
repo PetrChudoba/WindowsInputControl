@@ -3,6 +3,11 @@
 namespace WindowsInputControl.Native
 {
 #pragma warning disable 649
+
+    //https://msdn.microsoft.com/en-us/library/windows/desktop/ms646271(v=vs.85).aspx
+
+
+
     /// <summary>
     /// The INPUT structure is used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks. (see: http://msdn.microsoft.com/en-us/library/ms646270(VS.85).aspx)
     /// Declared in Winuser.h, include Windows.h

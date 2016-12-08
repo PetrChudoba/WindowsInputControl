@@ -87,7 +87,7 @@ namespace WindowsInputControl.Helpers
         /// Changes the bit on the specified position.
         /// </summary>
         /// <param name="number">The number.</param>
-        /// <param name="requiredValue">if set to <c>true</c> sets bit otherwise unsets.</param>
+        /// <param name="requiredValue">if set to <c>true</c> sets the bit to 1 otherwise sets the bit to 0.</param>
         /// <param name="position">The position.</param>
         /// <returns>System.UInt32.</returns>
         public static uint ChangeBit(this uint number, bool requiredValue, int position)
