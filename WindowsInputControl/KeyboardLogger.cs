@@ -86,8 +86,7 @@ namespace WindowsInputControl.Hooks
             // Debug.WriteLine("computed vk  {0}, Vk {1}, Sc {2} and flags {3} and {4}", getVk, lParam.vkCode, lParam.scanCode, lParam.flags, lParam.dwExtraInfo);
 
 
-            return IntPtr.Zero;
-            //The event wasn't handled, pass it to next application
+            
             return NativeWindowsHookMethods.CallNextHookEx(hookID, nCode, wParam, lParam);
             
 

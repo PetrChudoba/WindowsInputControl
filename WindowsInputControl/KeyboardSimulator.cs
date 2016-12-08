@@ -258,8 +258,9 @@ namespace WindowsInputControl
         public IKeyboardSimulator SendScanCode(ushort scanCode, IKeyboardLayout keyboardLayout)
         {
 
-            ushort vk = keyboardLayout.GetVirtualKey(scanCode)
+            ushort vk = keyboardLayout.GetVirtualKey(scanCode);
 
+            SendScanVirtualCode(scanCode, vk);
 
 
             return this;

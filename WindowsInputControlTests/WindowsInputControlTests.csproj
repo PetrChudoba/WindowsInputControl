@@ -52,6 +52,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Helpers\UintBitOperationsTests.cs" />
+    <Compile Include="KeyboardLayoutControlTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

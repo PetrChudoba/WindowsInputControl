@@ -18,5 +18,9 @@ namespace WindowsInputControl.Hooks
         public static extern bool UnhookWindowsHookEx(IntPtr hhk);
 
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetMessageExtraInfo();
+
+
     }
 }

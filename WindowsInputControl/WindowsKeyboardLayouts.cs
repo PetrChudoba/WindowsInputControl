@@ -17,13 +17,11 @@ namespace WindowsInputControl.Hooks
         
         public WindowsKeyboardLayouts(IntPtr keyboardHandle, string keyboardIdentifier)
         {
-            Contract.Requires(layoutNames != null);
+          
             Contract.Requires(keyboardHandle != null);
             Contract.Requires(!string.IsNullOrEmpty(keyboardIdentifier));
             Contract.Requires(keyboardIdentifier.Length == 9);
 
-
-            _layoutNames = layoutNames;
             _keyboardHandle = keyboardHandle;
             _keyboardIdentifier = keyboardIdentifier;
         }

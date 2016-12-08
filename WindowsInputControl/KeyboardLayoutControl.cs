@@ -5,45 +5,67 @@ using System.Text;
 
 namespace WindowsInputControl.Hooks
 {
+
+
+
     /// <summary>
-    /// 
+    /// Class KeyboardLayoutControl.
     /// </summary>
     public class KeyboardLayoutControl
     {
+        #region Methods
 
-
-
-        /// <summary>
-        /// Gets the layouts.
-        /// </summary>
-        /// <returns>IEnumerable&lt;IKeyboardLayout&gt;.</returns>
-        public IEnumerable<IKeyboardLayout> GetLayouts()
+        public IEnumerable<IKeyboardLayout> GetAllInstalledLayouts()
         {
             List<IKeyboardLayout> keyboards = new List<IKeyboardLayout>();
 
             int nElements = NativeKeyboardMethods.GetKeyboardLayoutList(0, null);
             IntPtr[] ids = new IntPtr[nElements];
             NativeKeyboardMethods.GetKeyboardLayoutList(ids.Length, ids);
-
             
 
-            foreach(var khl in ids)
+            foreach(var keybdHandle in ids)
             {
-                string keyboardIdentifier = GetLayoutIdentifier(khl);
+                string keybdIdentifier = GetLayoutIdentifier(keybdHandle);
+
+                IKeyboardLayout keybd = new WindowsKeyboardLayouts(keybdHandle,keybdIdentifier);
+
+                keyboards.Add(keybd);
 
 
             }
 
-
-
             return keyboards;
         }
+
+
+        IKeyboardLayout GetActiveLayout()
+        {
+
+
+            //Find thread
+            IntPtr fore = NativeWindowInfoMethods.GetForegroundWindow();
+            int tpid = NativeWindowInfoMethods.GetWindowThreadProcessId(fore, IntPtr.Zero);
+
+
+            //Get handle and identifier for active layout
+            IntPtr layoutHandle = NativeKeyboardMethods.GetKeyboardLayout(tpid);
+            string layoutIdentifier = GetLayoutIdentifier(layoutHandle);
+
+
+            IKeyboardLayout kbdLayout = new WindowsKeyboardLayouts(layoutHandle, layoutIdentifier);
+
+            return kbdLayout;
+
+        }
+
+
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public string GetLayoutIdentifier()
+        public string GetActiveLayoutIdentifier()
         {
             var keyboardName = new StringBuilder(NativeKeyboardMethods.KeyboardNameLength);
             NativeKeyboardMethods.GetKeyboardLayoutName(keyboardName);
@@ -52,12 +74,20 @@ namespace WindowsInputControl.Hooks
         }
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="keyboardHandle"></param>
-        /// <returns></returns>
-        public string GetLayoutIdentifier(IntPtr keyboardHandle)
+
+        public IntPtr GetActiveLayoutHandle()
+        {
+            IntPtr layout = NativeKeyboardMethods.GetKeyboardLayout(0);
+
+            return layout;
+           
+        }
+
+        #endregion
+
+        #region Private methods
+
+        private string GetLayoutIdentifier(IntPtr keyboardHandle)
         {
             //Get current layout
             IntPtr layout = NativeKeyboardMethods.GetKeyboardLayout(0);
@@ -78,48 +108,7 @@ namespace WindowsInputControl.Hooks
 
         }
 
-        int GetVirtualCode(int scanCode)
-        {
-            IntPtr fore = NativeWindowInfoMethods.GetForegroundWindow();
-            int tpid = NativeWindowInfoMethods.GetWindowThreadProcessId(fore, IntPtr.Zero);
-            IntPtr layout = NativeKeyboardMethods.GetKeyboardLayout(tpid);
+        #endregion
 
-
-            int virtualCode = NativeKeyboardMethods.MapVirtualKeyEx(scanCode, 3, layout);
-
-            return virtualCode;
-        }
-
-
-    }
-
-
-
-
-    public interface IKeyboardLayout
-    {
-        string Identifier { get; }
-
-        string Name { get;  }
-
-    
-        ushort GetVirtualKey(ushort scanCode);
-    }
-
-
-    public class WindowsKeyboardLayouts : IKeyboardLayout
-    {
-
-        private IntPtr _keyboardHandle;
-
-
-        public string Identifier { get; }
-
-        public string Name { get; }
-
-        public ushort GetVirtualKey(ushort scanCode)
-        {
-            return (ushort) NativeKeyboardMethods.MapVirtualKeyEx(scanCode, 3, _keyboardHandle);
-        }
     }
 }
