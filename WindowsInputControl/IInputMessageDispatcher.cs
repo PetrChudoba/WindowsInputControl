@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using WindowsInputControl.Native;
 
 namespace WindowsInputControl
@@ -8,6 +9,7 @@ namespace WindowsInputControl
     /// <summary>
     /// The contract for a service that dispatches <see cref="Input"/> messages to the appropriate destination.
     /// </summary>
+    [ContractClass(typeof(InputMessageDispatcherContract))]
     internal interface IInputMessageDispatcher
     {
         /// <summary>
@@ -19,5 +21,17 @@ namespace WindowsInputControl
         /// <exception cref="Exception">If the any of the commands in the <paramref name="inputs"/> array could not be sent successfully.</exception>
         void DispatchInput(Input[] inputs);
 
+    }
+
+
+    [ContractClassFor(typeof(IInputMessageDispatcher))]
+    abstract class InputMessageDispatcherContract : IInputMessageDispatcher
+    {
+        public void DispatchInput(Input[] inputs)
+        {
+            Contract.Requires(inputs != null);
+            Contract.Requires(inputs.Length != 0);
+
+        }
     }
 }
