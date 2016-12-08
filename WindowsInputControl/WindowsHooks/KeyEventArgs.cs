@@ -9,32 +9,56 @@ using WindowsInputControl.Native;
 
 namespace WindowsInputControl.Hooks
 {
-    //https://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx
+   
 
 
-
+    /// <summary>
+    /// Struct KeyEventArgs <see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx"/>
+    /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct KeyboardHook
+    public struct KeyEventArgs
     {
-        /*
-        DWORD vkCode;
-        DWORD scanCode;
-        DWORD flags;
-        DWORD time;
-        ULONG_PTR dwExtraInfo;
-        */
 
+        #region Fields
 
-        public uint VkCode;
+        /// <summary>
+        /// The virtual key code
+        /// DWORD vkCode;
+        /// </summary>
+        public uint VirtualKey;
 
+        /// <summary>
+        /// The scan code
+        /// DWORD scanCode;
+        /// </summary>
         public uint ScanCode;
 
+
+        /// <summary>
+        /// The flags
+        /// DWORD flags;
+        /// </summary>
         public uint Flags;
 
+
+        /// <summary>
+        /// The time
+        /// DWORD time;
+        /// </summary>
         public uint Time;
 
+
+        /// <summary>
+        /// The dw extra information
+        /// ULONG_PTR dwExtraInfo;
+        /// </summary>
         public IntPtr DwExtraInfo;
 
+
+        #endregion
+
+
+        #region Properties
 
         public bool IsExtended
         {
@@ -66,10 +90,14 @@ namespace WindowsInputControl.Hooks
             return (b & (1 << pos)) != 0;
         }
 
-    
+
+        #endregion
+
+
+
         public override string ToString()
         {
-            return $"vk {VkCode}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
+            return $"vk {VirtualKey}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
         }
     }
 }

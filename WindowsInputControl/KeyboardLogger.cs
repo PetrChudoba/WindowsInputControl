@@ -9,21 +9,21 @@ namespace WindowsInputControl.Hooks
     public class KeyboardLogger
     {
 
-        private HookHandlerDelegate proc;
+        private KeyboardHookHandlerDelegate proc;
         private IntPtr hookID = IntPtr.Zero;
         private const int WH_KEYBOARD_LL = 13;
 
 
         private IInputMessageDispatcher _dispatcher = new WindowsInputMessageDispatcher();
 
-       private IList<KeyboardHook> _events = new List<KeyboardHook>();
+       private IList<KeyEventArgs> _events = new List<KeyEventArgs>();
 
-        public IEnumerable<KeyboardHook> KeyEvents { get { return _events; } }
+        public IEnumerable<KeyEventArgs> KeyEvents { get { return _events; } }
 
 
         public KeyboardLogger()
         {
-            proc = new HookHandlerDelegate(HookCallback);
+            proc = new KeyboardHookHandlerDelegate(HookCallback);
         }
 
         public void SetHook()
@@ -37,7 +37,7 @@ namespace WindowsInputControl.Hooks
         }
 
 
-        private IntPtr HookCallback(int nCode, KeyEventType wParam, KeyboardHook lParam)
+        private IntPtr HookCallback(int nCode, KeyEventType wParam, KeyEventArgs lParam)
         {
 
             Debug.WriteLine(wParam.ToString() +  " "  + lParam.ToString());
@@ -106,7 +106,7 @@ namespace WindowsInputControl.Hooks
                 
                 KeyboardInput ina  = new KeyboardInput();
 
-                ina.KeyCode = (ushort) evn.VkCode;
+                ina.KeyCode = (ushort) evn.VirtualKey;
                 ina.ScanCode =(ushort) evn.ScanCode;
 
                 if (evn.IsExtended)

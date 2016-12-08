@@ -11,13 +11,13 @@ namespace WindowsInputControl.Hooks
     public class KeyboardLayoutControl
     {
 
- 
+
 
         /// <summary>
-        /// 
+        /// Gets the layouts.
         /// </summary>
-        /// <returns></returns>
-        public IEnumerable<IKeyboardLayout> GetKeyboardLayouts()
+        /// <returns>IEnumerable&lt;IKeyboardLayout&gt;.</returns>
+        public IEnumerable<IKeyboardLayout> GetLayouts()
         {
             List<IKeyboardLayout> keyboards = new List<IKeyboardLayout>();
 
@@ -29,7 +29,7 @@ namespace WindowsInputControl.Hooks
 
             foreach(var khl in ids)
             {
-                string keyboardIdentifier = GetKeyboardIdentifier(khl);
+                string keyboardIdentifier = GetLayoutIdentifier(khl);
 
 
             }
@@ -43,7 +43,7 @@ namespace WindowsInputControl.Hooks
         /// 
         /// </summary>
         /// <returns></returns>
-        public string GetKeyboardIndentifier()
+        public string GetLayoutIdentifier()
         {
             var keyboardName = new StringBuilder(NativeKeyboardMethods.KeyboardNameLength);
             NativeKeyboardMethods.GetKeyboardLayoutName(keyboardName);
@@ -57,7 +57,7 @@ namespace WindowsInputControl.Hooks
         /// </summary>
         /// <param name="keyboardHandle"></param>
         /// <returns></returns>
-        public string GetKeyboardIdentifier(IntPtr keyboardHandle)
+        public string GetLayoutIdentifier(IntPtr keyboardHandle)
         {
             //Get current layout
             IntPtr layout = NativeKeyboardMethods.GetKeyboardLayout(0);

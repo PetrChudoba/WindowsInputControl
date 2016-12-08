@@ -8,11 +8,11 @@ namespace WindowsInputControl.Hooks
     {
 
         [DllImport("user32.dll")]
-        public static extern IntPtr SetWindowsHookEx(int idHook, HookHandlerDelegate lpfn, IntPtr hMod, uint dwThreadId);
+        public static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookHandlerDelegate lpfn, IntPtr hMod, uint dwThreadId);
 
 
         [DllImport("user32.dll")]
-        public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, KeyEventType wParam, KeyboardHook lParam);
+        public static extern IntPtr CallNextHookEx(IntPtr hhk, int nCode, KeyEventType wParam, KeyEventArgs lParam);
 
         [DllImport("user32.dll")]
         public static extern bool UnhookWindowsHookEx(IntPtr hhk);
