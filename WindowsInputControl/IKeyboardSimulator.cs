@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WindowsInputControl.Hooks;
 using WindowsInputControl.Native;
 
 namespace WindowsInputControl
@@ -94,6 +95,8 @@ namespace WindowsInputControl
 
 
         IKeyboardSimulator SendScanCode(ushort scanCode);
+
+        IKeyboardSimulator SendScanCode(ushort scanCode, IKeyboardLayout keyboardLayout);
 
         IKeyboardSimulator SendScanVirtualCode(ushort scanCode, ushort virtualKey);
 

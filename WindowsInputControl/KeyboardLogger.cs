@@ -17,8 +17,11 @@ namespace WindowsInputControl.Hooks
         private IInputMessageDispatcher _dispatcher = new WindowsInputMessageDispatcher();
 
        private IList<KeyEventArgs> _events = new List<KeyEventArgs>();
+        private KeyEventArgs _lastEvent;
 
         public IEnumerable<KeyEventArgs> KeyEvents { get { return _events; } }
+
+        public KeyEventArgs LastKey { get { return _lastEvent; } }
 
 
         public KeyboardLogger()
@@ -81,6 +84,7 @@ namespace WindowsInputControl.Hooks
 
 
             _events.Add(lParam);
+            _lastEvent = lParam;
 
 
             // Debug.WriteLine("computed vk  {0}, Vk {1}, Sc {2} and flags {3} and {4}", getVk, lParam.vkCode, lParam.scanCode, lParam.flags, lParam.dwExtraInfo);

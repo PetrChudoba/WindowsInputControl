@@ -39,7 +39,7 @@ namespace WindowsInputControl.Hooks
         }
 
 
-        IKeyboardLayout GetActiveLayout()
+        public IKeyboardLayout GetActiveLayout()
         {
 
 
