@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <StackPanel>
-        <Button Click="ButtonBase_OnClick"></Button>
+        <TextBox Text="{Binding ScanCode, Mode=TwoWay}" />
+        <TextBox Text="{Binding VirtualKey, Mode=TwoWay}" />
+        <TextBox Text="{Binding Flags, Mode=TwoWay}" />
+        <Button Click="ButtonBase_OnClick" >Send</Button>
     </StackPanel>
 </Window>

@@ -98,7 +98,11 @@ namespace WindowsInputControl
         IKeyboardSimulator SendScanVirtualCode(ushort scanCode, ushort virtualKey);
 
 
-        
+        IKeyboardSimulator Send(ushort scanCode, ushort virtualKey, KeyboardFlag flags);
+
+
+
+
 
     }
 }

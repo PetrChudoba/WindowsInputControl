@@ -21,21 +21,20 @@ namespace WindowsInputLogger
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainWindowsVm _viewModel;
+
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowsVm vm = new MainWindowsVm();
+             _viewModel = new MainWindowsVm();
 
-            this.DataContext = vm;
+            this.DataContext = _viewModel;
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            IInputSimulator sim = new InputSimulator();
-          //  sim.Keyboard.TextEntry("Ahoj");
 
-        //    sim.Keyboard.SendScanCode(21);
-            sim.Keyboard.SendScanVirtualCode(21, 55);
+            _viewModel.Send();
 
 
         }

@@ -1,9 +1,11 @@
-﻿namespace WindowsInputControl.Hooks
+﻿using System;
+
+namespace WindowsInputControl.Hooks
 {
     /// <summary>
     /// 
     /// </summary>
-    enum KeyEventType
+    enum KeyEventType 
     {
         /// <summary>
         /// Key down

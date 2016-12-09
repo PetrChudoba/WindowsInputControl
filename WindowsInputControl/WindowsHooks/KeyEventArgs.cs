@@ -16,7 +16,7 @@ namespace WindowsInputControl.Hooks
     /// Struct KeyEventArgs <see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx"/>
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
-    public struct KeyEventArgs
+    public class KeyEventArgs
     {
 
         #region Fields

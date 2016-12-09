@@ -204,10 +204,10 @@ namespace WindowsInputControl
         /// <summary>
         /// Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
-        /// <param name="millsecondsTimeout">The number of milliseconds to wait.</param>
-        public IKeyboardSimulator Sleep(int millsecondsTimeout)
+        /// <param name="millisecondsTimeout">The number of milliseconds to wait.</param>
+        public IKeyboardSimulator Sleep(int millisecondsTimeout)
         {
-            Thread.Sleep(millsecondsTimeout);
+            Thread.Sleep(millisecondsTimeout);
             return this;
         }
 
@@ -295,6 +295,24 @@ namespace WindowsInputControl
             return this;
 
         }
+
+
+        public IKeyboardSimulator Send(ushort scanCode, ushort virtualKey, KeyboardFlag flags)
+        {
+            Input inp = new Input
+            {
+                Type = (uint) InputType.Keyboard,
+                Data = new MouseKeybdHardwareInput {Keyboard = new KeyboardInput()}
+            };
+            inp.Data.Keyboard.KeyCode = virtualKey;
+            inp.Data.Keyboard.ScanCode = scanCode;
+            inp.Data.Keyboard.Flags = (uint) flags;
+
+            _messageDispatcher.DispatchInput(new[] {inp});
+
+
+        return this;
+    }
 
 
 
