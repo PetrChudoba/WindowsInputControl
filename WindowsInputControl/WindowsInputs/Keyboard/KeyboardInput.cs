@@ -22,7 +22,7 @@ namespace WindowsInputControl.Native
         /// 
         /// mapped to WORD      wVk;
         /// </summary>
-        public ushort KeyCode;
+        public VirtualKeyCode KeyCode;
 
         /// <summary>
         /// Specifies a hardware scan code for the key. If dwFlags specifies KEYEVENTF_UNICODE, wScan specifies a Unicode character which is to be sent to the foreground application. 
@@ -72,8 +72,15 @@ namespace WindowsInputControl.Native
 
         public void SetScanCode(ushort scanCode)
         {
-            Flags |= (uint) KeyboardFlag.ScanCode;
-            ScanCode |= 0xE000;
+
+            ushort values = (ushort) (scanCode & 0xFF00);
+
+            if ( (scanCode & 0xFF00) == 0xE000)
+            {
+                Flags |= (uint) KeyboardFlag.ScanCode; 
+            } 
+           
+            
             this.ScanCode = scanCode;
         }
 

@@ -38,5 +38,10 @@ namespace WindowsInputLogger
 
 
         }
+
+        private void ButtonBase_OnClick2(object sender, RoutedEventArgs e)
+        {
+            _viewModel.SendScanCode();
+        }
     }
 }

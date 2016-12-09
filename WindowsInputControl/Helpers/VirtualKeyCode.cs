@@ -1,9 +1,11 @@
-﻿namespace WindowsInputControl.Native
+﻿using System;
+
+namespace WindowsInputControl.Native
 {
     /// <summary>
     ///     The list of VirtualKeyCodes (see: http://msdn.microsoft.com/en-us/library/ms645540(VS.85).aspx)
     /// </summary>
-    public enum VirtualKeyCode //: UInt16
+    public enum VirtualKeyCode : ushort
     {
         /// <summary>
         ///     Left mouse button

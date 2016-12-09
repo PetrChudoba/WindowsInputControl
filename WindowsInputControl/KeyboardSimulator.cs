@@ -224,6 +224,8 @@ namespace WindowsInputControl
         public IKeyboardSimulator SendScanCode(ushort scanCode)
         {
 
+            bool extended = (scanCode & 0xFF00) == 0xE0;
+
             Input[] arr = new Input[2];
 
 
@@ -236,6 +238,7 @@ namespace WindowsInputControl
             };
             inp.Data.Keyboard.SetScanCode(scanCode);
 
+           
 
             
 
@@ -279,7 +282,7 @@ namespace WindowsInputControl
                 Type = (uint)InputType.Keyboard,
                 Data = new MouseKeybdHardwareInput { Keyboard = new KeyboardInput() }
             };
-            inp.Data.Keyboard.KeyCode = virtualKey;
+            inp.Data.Keyboard.KeyCode = (VirtualKeyCode) virtualKey;
             inp.Data.Keyboard.ScanCode = scanCode;
 
             arr[0] = inp;
@@ -299,19 +302,34 @@ namespace WindowsInputControl
 
         public IKeyboardSimulator Send(ushort scanCode, ushort virtualKey, KeyboardFlag flags)
         {
+
+            Input[] arr = new Input[2];
+
             Input inp = new Input
             {
                 Type = (uint) InputType.Keyboard,
                 Data = new MouseKeybdHardwareInput {Keyboard = new KeyboardInput()}
             };
-            inp.Data.Keyboard.KeyCode = virtualKey;
+            inp.Data.Keyboard.KeyCode = (VirtualKeyCode) virtualKey;
             inp.Data.Keyboard.ScanCode = scanCode;
             inp.Data.Keyboard.Flags = (uint) flags;
 
-            _messageDispatcher.DispatchInput(new[] {inp});
+            if ((scanCode & 0xFF00) == 0xE000)
+            {
+                inp.Data.Keyboard.Flags |= (uint) KeyboardFlag.ExtendedKey;
+            }
+
+            arr[0] = inp;
+
+            inp.Data.Keyboard.SetKeyUp();
+
+            arr[1] = inp;
 
 
-        return this;
+            _messageDispatcher.DispatchInput(arr);
+
+
+            return this;
     }
 
 

@@ -54,5 +54,9 @@ namespace WindowsInputLogger
             get { return _events; }
         }
 
+        public void SendScanCode()
+        {
+            kbdSimulator.SendScanCode(0xE01F);
+        }
     }
 }

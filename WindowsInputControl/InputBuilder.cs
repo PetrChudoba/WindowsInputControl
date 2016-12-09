@@ -124,7 +124,7 @@ namespace WindowsInputControl
                                 Keyboard =
                                     new KeyboardInput
                                         {
-                                            KeyCode = (UInt16) keyCode,
+                                            KeyCode =  keyCode,
                                             ScanCode = 0,
                                             Flags = IsExtendedKey(keyCode) ?  (ushort) KeyboardFlag.ExtendedKey : (ushort) 0,
                                             Time = 0,
@@ -153,7 +153,7 @@ namespace WindowsInputControl
                                 Keyboard =
                                     new KeyboardInput
                                         {
-                                            KeyCode = (UInt16) keyCode,
+                                            KeyCode = keyCode,
                                             ScanCode = 0,
                                             Flags = (ushort) (IsExtendedKey(keyCode)
                                                                   ? KeyboardFlag.KeyUp | KeyboardFlag.ExtendedKey

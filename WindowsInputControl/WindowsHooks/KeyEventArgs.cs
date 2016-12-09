@@ -60,6 +60,12 @@ namespace WindowsInputControl.Hooks
 
         #region Properties
 
+        public VirtualKeyCode VirtualKeyCode
+        {
+            get { return (VirtualKeyCode) VirtualKey; }
+        }
+
+
         public bool IsExtended
         {
             get { return IsBitSet( Flags, 0); }   
@@ -97,7 +103,7 @@ namespace WindowsInputControl.Hooks
 
         public override string ToString()
         {
-            return $"vk {VirtualKey}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
+            return $"vk {VirtualKeyCode}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
         }
     }
 }
