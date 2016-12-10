@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using WindowsInputControl.Hooks;
 using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl
 {
@@ -222,97 +223,78 @@ namespace WindowsInputControl
         }
 
 
-        public IKeyboardSimulator SendScanCode(ushort scanCode, IKeyboardLayout keyboardLayout)
-        {
-
-            ushort vk = keyboardLayout.GetVirtualKey(scanCode);
-
-            SendScanVirtualCode(scanCode, vk);
-
-
-            return this;
-        }
-
-        public IKeyboardSimulator SendScanVirtualCode(ushort scanCode, ushort virtualKey)
-        {
-
-            Input[] arr = new Input[2];
-
-
-
-            //Create Key down
-            Input inp = new Input
-            {
-                Type = InputType.Keyboard,
-                Data = new MouseKeybdHardwareInput { Keyboard = new KeyboardInput() }
-            };
-            inp.Data.Keyboard.KeyCode = (VirtualKeyCode) virtualKey;
-            inp.Data.Keyboard.ScanCode = scanCode;
-
-            arr[0] = inp;
-
-            inp.Data.Keyboard.SetKeyUp();
-
-            arr[1] = inp;
-
-
-            _messageDispatcher.DispatchInput(arr);
-
-
-            return this;
-
-        }
-
-
-        public IKeyboardSimulator Send(ushort scanCode, ushort virtualKey, KeyboardFlag flags)
-        {
-
-            Input[] arr = new Input[2];
-
-            Input inp = new Input
-            {
-                Type =  InputType.Keyboard,
-                Data = new MouseKeybdHardwareInput {Keyboard = new KeyboardInput()}
-            };
-            inp.Data.Keyboard.KeyCode = (VirtualKeyCode) virtualKey;
-            inp.Data.Keyboard.ScanCode = scanCode;
-            inp.Data.Keyboard.Flags =  flags;
-
-            if ((scanCode & 0xFF00) == 0xE000)
-            {
-                inp.Data.Keyboard.Flags |=  KeyboardFlag.ExtendedKey;
-            }
-
-            arr[0] = inp;
-
-            inp.Data.Keyboard.SetKeyUp();
-
-            arr[1] = inp;
-
-
-            _messageDispatcher.DispatchInput(arr);
-
-
-            return this;
-    }
 
 
 
         #region Send
 
 
-        public IKeyboardSimulator Send(KeyAction action, ushort scanCode, VirtualKeyCode virtualKey)
+        public IKeyboardSimulator Send(KeyAction action, ScanCode scanCode, VirtualKeyCode virtualKey)
         {
 
-            bool isExtend = (scanCode & 0xFF00) == 0xE000;
-
-            return SendInner(action, scanCode, isExtend, virtualKey);
+            return SendInner(action, scanCode, virtualKey);
         }
+
+
+
+        public IKeyboardSimulator Send(ScanCode scanCode, IKeyboardLayout layout)
+        {
+
+            VirtualKeyCode virtualKey = layout.GetVirtualKey(scanCode);
+
+            return SendInner(scanCode, virtualKey);
+        }
+
+
+        public IKeyboardSimulator Send(KeyAction action, ScanCode scanCode, IKeyboardLayout layout)
+        {
+            VirtualKeyCode virtualKey = layout.GetVirtualKey(scanCode);
+            return SendInner(action, scanCode, virtualKey);
+        }
+
+
+
+        public IKeyboardSimulator Send( VirtualKeyCode virtualKey, IKeyboardLayout layout)
+        {
+
+            ScanCode scanCode = layout.GetScanCode(virtualKey);
+
+            return SendInner( scanCode, virtualKey);
+        }
+        
+
+
+        public IKeyboardSimulator Send(KeyAction action, VirtualKeyCode virtualKey, IKeyboardLayout layout)
+        {
+            ScanCode scanCode = layout.GetScanCode(virtualKey);
+
+            return SendInner(action, scanCode, virtualKey);
+        }
+
+
+
+
 
 
 
         #endregion
 
+
+        #region VirtualKey
+
+        public IKeyboardSimulator SendVirtualKey(VirtualKeyCode virtualKey)
+        {
+
+            return SendInner(new ScanCode(), virtualKey);
+        }
+
+        public IKeyboardSimulator SendVirtualKey(KeyAction action, VirtualKeyCode virtualKey)
+        {
+            return SendInner(action, new ScanCode(), virtualKey);
+        }
+
+
+        #endregion
 
 
 
@@ -321,37 +303,23 @@ namespace WindowsInputControl
         #region Scancode
 
 
-        public IKeyboardSimulator SendScanCode(ushort scanCode)
+
+        public IKeyboardSimulator SendScanCode(ScanCode scanCode)
         {
+            
             return SendScanCode(KeyAction.Press, scanCode);
+
         }
 
-        public IKeyboardSimulator SendScanCode(ushort scanCode, bool isExtended)
+        public IKeyboardSimulator SendScanCode(KeyAction keyAction, ScanCode scanCode)
         {
+            
 
-            return SendScanCode(KeyAction.Press, scanCode, isExtended);
-
-        }
-
-        public IKeyboardSimulator SendScanCode(KeyAction keyAction, ushort scanCode)
-        {
-            bool isExtended = (scanCode & 0xFF00) == 0xE000;
-
-            return SendScanCodeInner(keyAction,scanCode, isExtended);
+            return SendScanCodeInner(keyAction,scanCode);
         }
 
 
-        public IKeyboardSimulator SendScanCode(KeyAction keyAction, ushort scanCode, bool isExtended)
-        {
-            ushort extendedScancode = scanCode;
 
-            if (isExtended)
-            {
-                extendedScancode |= 0xE000;
-            }
-
-            return SendScanCodeInner(keyAction, extendedScancode, isExtended);
-        }
 
 
         #endregion
@@ -359,9 +327,9 @@ namespace WindowsInputControl
 
         #region Private methods
 
-        private IKeyboardSimulator SendInner(KeyAction action, ushort scanCode, bool isExtended, VirtualKeyCode virtualKey)
+        private IKeyboardSimulator SendInner(KeyAction action, ScanCode scanCode, VirtualKeyCode virtualKey)
         {
-            if (action == KeyAction.Press) return SendScanCodeInner(scanCode, isExtended);
+            if (action == KeyAction.Press) return SendInner(scanCode,virtualKey);
 
             Input inpDown = new Input()
             {
@@ -372,7 +340,7 @@ namespace WindowsInputControl
                     {
                         ScanCode = scanCode,
                         KeyCode = virtualKey,
-                        Flags =  (isExtended ? KeyboardFlag.ExtendedKey : 0) | (action == KeyAction.Up ? KeyboardFlag.KeyUp : 0)
+                        Flags =  (scanCode.IsExtended ? KeyboardFlag.ExtendedKey : 0) | (action == KeyAction.Up ? KeyboardFlag.KeyUp : 0)
                     }
                 }
 
@@ -383,7 +351,7 @@ namespace WindowsInputControl
             return this;
         }
 
-        private IKeyboardSimulator SendInner( ushort scanCode, bool isExtended, VirtualKeyCode virtualKey)
+        private IKeyboardSimulator SendInner( ScanCode scanCode, VirtualKeyCode virtualKey)
         {
             Input inpDown = new Input()
             {
@@ -394,7 +362,7 @@ namespace WindowsInputControl
                     {
                         ScanCode = scanCode,
                         KeyCode = virtualKey,
-                        Flags =  (isExtended ? KeyboardFlag.ExtendedKey : 0)
+                        Flags =  (scanCode.IsExtended ? KeyboardFlag.ExtendedKey : 0)
                     }
                 }
 
@@ -410,7 +378,7 @@ namespace WindowsInputControl
                     {
                         ScanCode = scanCode,
                         KeyCode = virtualKey,
-                        Flags =  KeyboardFlag.KeyUp | (isExtended ? KeyboardFlag.ExtendedKey : 0)
+                        Flags =  KeyboardFlag.KeyUp | (scanCode.IsExtended ? KeyboardFlag.ExtendedKey : 0)
                     }
                 }
 
@@ -424,9 +392,9 @@ namespace WindowsInputControl
 
 
 
-        private IKeyboardSimulator SendScanCodeInner(KeyAction action, ushort scanCode, bool isExtended)
+        private IKeyboardSimulator SendScanCodeInner(KeyAction action, ScanCode scanCode)
         {
-            if (action == KeyAction.Press) return SendScanCodeInner(scanCode, isExtended);
+            if (action == KeyAction.Press) return SendScanCodeInner(scanCode);
 
             Input inpDown = new Input()
             {
@@ -436,7 +404,7 @@ namespace WindowsInputControl
                     Keyboard = new KeyboardInput()
                     {
                         ScanCode = scanCode,
-                        Flags = KeyboardFlag.ScanCode | (isExtended ? KeyboardFlag.ExtendedKey : 0) | (action == KeyAction.Up? KeyboardFlag.KeyUp : 0)
+                        Flags = KeyboardFlag.ScanCode | (scanCode.IsExtended ? KeyboardFlag.ExtendedKey : 0) | (action == KeyAction.Up? KeyboardFlag.KeyUp : 0)
                     }
                 }
 
@@ -449,7 +417,7 @@ namespace WindowsInputControl
 
 
 
-        private IKeyboardSimulator SendScanCodeInner(ushort scanCode, bool isExtended)
+        private IKeyboardSimulator SendScanCodeInner(ScanCode scanCode)
         {
             Input inpDown = new Input()
             {
@@ -459,7 +427,7 @@ namespace WindowsInputControl
                     Keyboard = new KeyboardInput()
                     {
                         ScanCode = scanCode,
-                        Flags = KeyboardFlag.ScanCode | (isExtended? KeyboardFlag.ExtendedKey : 0)
+                        Flags = KeyboardFlag.ScanCode | (scanCode.IsExtended? KeyboardFlag.ExtendedKey : 0)
                     }
                 }
 
@@ -474,7 +442,7 @@ namespace WindowsInputControl
                     Keyboard = new KeyboardInput()
                     {
                         ScanCode = scanCode,
-                        Flags = KeyboardFlag.ScanCode | KeyboardFlag.KeyUp | (isExtended ? KeyboardFlag.ExtendedKey : 0)
+                        Flags = KeyboardFlag.ScanCode | KeyboardFlag.KeyUp | (scanCode.IsExtended ? KeyboardFlag.ExtendedKey : 0)
                     }
                 }
 

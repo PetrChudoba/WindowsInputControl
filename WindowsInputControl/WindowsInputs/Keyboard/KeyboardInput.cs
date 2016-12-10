@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl.Native
 {
@@ -29,7 +30,7 @@ namespace WindowsInputControl.Native
         /// 
         /// mapped to WORD      wScan;
         /// </summary>
-        public ushort ScanCode;
+        public ScanCode ScanCode;
 
         /// <summary>
         /// Specifies various aspects of a keystroke. This member can be certain combinations of the following values.
@@ -58,60 +59,6 @@ namespace WindowsInputControl.Native
 
 
 
-
-
-        public KeyboardInput(ushort scanCode, bool extended, ushort virtualKey, bool isUp)
-        {
-
-            this.ScanCode = scanCode;
-            this.KeyCode = (VirtualKeyCode) virtualKey;
-            this.Flags = 0;
-            this.Time = 0;
-            this.ExtraInfo = IntPtr.Zero;
-
-
-            if (extended)
-            {
-
-                this.ScanCode |= 0xE000;
-                this.Flags |= KeyboardFlag.ExtendedKey;
-            }
-
-            if (isUp)
-            {
-                this.Flags |= KeyboardFlag.KeyUp;
-            }
-
-                
-        }
-
-
-
-        public void SetExtended()
-        {
-            Flags |=  KeyboardFlag.ExtendedKey;
-         
-        }
-
-
-        public void SetKeyUp()
-        {
-            Flags |=  KeyboardFlag.KeyUp;
-        }
-
-        public void SetScanCode(ushort scanCode)
-        {
-
-            ushort values = (ushort) (scanCode & 0xFF00);
-
-            if ( (scanCode & 0xFF00) == 0xE000)
-            {
-                Flags |=  KeyboardFlag.ScanCode; 
-            } 
-           
-            
-            this.ScanCode = scanCode;
-        }
 
         public bool IsKeyUpEvent
         {

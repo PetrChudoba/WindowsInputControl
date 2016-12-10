@@ -1,4 +1,7 @@
-﻿namespace WindowsInputControl.Hooks
+﻿using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
+
+namespace WindowsInputControl.Hooks
 {
     public interface IKeyboardLayout
     {
@@ -7,6 +10,7 @@
         string Name { get;  }
 
     
-        ushort GetVirtualKey(ushort scanCode);
+        VirtualKeyCode GetVirtualKey(ScanCode scanCode);
+        ScanCode GetScanCode(VirtualKeyCode virtualKey);
     }
 }

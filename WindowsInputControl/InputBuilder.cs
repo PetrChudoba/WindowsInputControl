@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl
 {
@@ -125,7 +126,7 @@ namespace WindowsInputControl
                                     new KeyboardInput
                                         {
                                             KeyCode =  keyCode,
-                                            ScanCode = 0,
+                                            ScanCode = new ScanCode(0),
                                             Flags = IsExtendedKey(keyCode) ?   KeyboardFlag.ExtendedKey : (ushort) 0,
                                             Time = 0,
                                             ExtraInfo = IntPtr.Zero
@@ -154,8 +155,8 @@ namespace WindowsInputControl
                                     new KeyboardInput
                                         {
                                             KeyCode = keyCode,
-                                            ScanCode = 0,
-                                            Flags =  (IsExtendedKey(keyCode)
+                                            ScanCode = new ScanCode(0),
+                                        Flags =  (IsExtendedKey(keyCode)
                                                                   ? KeyboardFlag.KeyUp | KeyboardFlag.ExtendedKey
                                                                   : KeyboardFlag.KeyUp),
                                             Time = 0,
@@ -171,9 +172,9 @@ namespace WindowsInputControl
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="ScanCode"></param>
+        /// <param name="scanCode"></param>
         /// <returns></returns>
-        public InputBuilder AddKeyDown(int ScanCode)
+        public InputBuilder AddKeyDown(ushort scanCode)
         {
             var down =
                 new Input
@@ -185,8 +186,8 @@ namespace WindowsInputControl
                                     new KeyboardInput
                                         {
                                             KeyCode = 0,
-                                            ScanCode = (ushort) ScanCode,
-                                            Flags =   KeyboardFlag.ScanCode,
+                                        ScanCode = new ScanCode(scanCode),
+                                        Flags =   KeyboardFlag.ScanCode,
                                             Time = 0,
                                             ExtraInfo = IntPtr.Zero
                                         }
@@ -201,9 +202,9 @@ namespace WindowsInputControl
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="ScanCode"></param>
+        /// <param name="scanCode"></param>
         /// <returns></returns>
-        public InputBuilder AddKeyUp(int ScanCode)
+        public InputBuilder AddKeyUp(ushort scanCode)
         {
             var down =
                new Input
@@ -215,8 +216,8 @@ namespace WindowsInputControl
                                     new KeyboardInput
                                         {
                                             KeyCode = 0,
-                                            ScanCode = (ushort) ScanCode,
-                                            Flags =   (KeyboardFlag.ScanCode |  KeyboardFlag.KeyUp),
+                                            ScanCode = new ScanCode(scanCode),
+                                             Flags =   (KeyboardFlag.ScanCode |  KeyboardFlag.KeyUp),
                                             Time = 0,
                                             ExtraInfo = IntPtr.Zero
                                         }
@@ -259,7 +260,7 @@ namespace WindowsInputControl
                                            new KeyboardInput
                                                {
                                                    KeyCode = 0,
-                                                   ScanCode = scanCode,
+                                                   ScanCode = new ScanCode(scanCode),
                                                    Flags =  KeyboardFlag.Unicode,
                                                    Time = 0,
                                                    ExtraInfo = IntPtr.Zero
@@ -276,8 +277,8 @@ namespace WindowsInputControl
                                          new KeyboardInput
                                              {
                                                  KeyCode = 0,
-                                                 ScanCode = scanCode,
-                                                 Flags =
+                                             ScanCode = new ScanCode(scanCode),
+                                             Flags =
                                                    (KeyboardFlag.KeyUp | KeyboardFlag.Unicode),
                                                  Time = 0,
                                                  ExtraInfo = IntPtr.Zero

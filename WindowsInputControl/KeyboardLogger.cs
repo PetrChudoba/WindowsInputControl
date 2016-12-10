@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl.Hooks
 {
@@ -90,23 +91,8 @@ namespace WindowsInputControl.Hooks
                 _events.Add(lParam);
                 _lastEvent = lParam;
             }
-
-            KeyboardSimulator keyb = new KeyboardSimulator(new InputSimulator());
-
-
-            if (lParam.VirtualKeyCode == VirtualKeyCode.VK_A)
-            {
-               keyb.Send(lParam.KeyAction, 45, VirtualKeyCode.LWIN);
-
-                return NativeWindowsHookMethods.CallNextHookEx(hookID, 0, wParam, lParam);
-            }
-
-
-            // Debug.WriteLine("computed vk  {0}, Vk {1}, Sc {2} and flags {3} and {4}", getVk, lParam.vkCode, lParam.scanCode, lParam.flags, lParam.dwExtraInfo);
-
-            //return  IntPtr.Zero;
-            
-            return NativeWindowsHookMethods.CallNextHookEx(hookID, nCode, wParam, lParam);
+         
+          return NativeWindowsHookMethods.CallNextHookEx(hookID, nCode, wParam, lParam);
             
 
         }
@@ -121,11 +107,13 @@ namespace WindowsInputControl.Hooks
 
             foreach (var evn in _events)
             {
+                
 
-                ushort vk = (ushort) evn.VirtualKey;
-                ushort sc = (ushort) evn.ScanCode;
+                ScanCode sc = new ScanCode((ushort) evn.ScanCode);
+                
 
-                simik.Send(evn.KeyAction, sc, (VirtualKeyCode) vk);
+
+                simik.Send(evn.KeyAction, sc, evn.VirtualKeyCode);
                 simik.Sleep(500);
 
 

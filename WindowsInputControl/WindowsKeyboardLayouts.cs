@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using WindowsInputControl.Helpers;
+using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl.Hooks
 {
@@ -44,9 +46,16 @@ namespace WindowsInputControl.Hooks
 
         #region Methods
 
-        public ushort GetVirtualKey(ushort scanCode)
+        public VirtualKeyCode GetVirtualKey(ScanCode scanCode)
         {
-            return (ushort) NativeKeyboardMethods.MapVirtualKeyEx(scanCode, 3, _keyboardHandle);
+            return (VirtualKeyCode) NativeKeyboardMethods.MapVirtualKeyEx(scanCode.Code, 3, _keyboardHandle);
+        }
+
+        public ScanCode GetScanCode(VirtualKeyCode virtualKey)
+        {
+
+            ushort scanCode = (ushort) NativeKeyboardMethods.MapVirtualKeyEx((int)virtualKey, 4, _keyboardHandle);
+            return new ScanCode(scanCode);
         }
 
         #endregion

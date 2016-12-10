@@ -113,11 +113,12 @@
     <Compile Include="WindowsInputs\InputType.cs" />
     <Compile Include="WindowsInputs\Keyboard\KeyboardInput.cs" />
     <Compile Include="WindowsInputs\Keyboard\KeyboardFlag.cs" />
+    <Compile Include="WindowsInputs\Keyboard\ScanCode.cs" />
     <Compile Include="WindowsInputs\Mouse\MouseFlag.cs" />
     <Compile Include="WindowsInputs\Mouse\MouseInput.cs" />
     <Compile Include="WindowsInputs\MouseKeybdHardwareInput.cs" />
     <Compile Include="NativeMethods\NativeMethods.cs" />
-    <Compile Include="Helpers\VirtualKeyCode.cs" />
+    <Compile Include="WindowsInputs\Keyboard\VirtualKeyCode.cs" />
     <Compile Include="WindowsInputs\Mouse\XButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsInputDeviceStateAdaptor.cs" />
