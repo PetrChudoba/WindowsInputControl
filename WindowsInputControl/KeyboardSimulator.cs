@@ -221,42 +221,6 @@ namespace WindowsInputControl
             return this;
         }
 
-        public IKeyboardSimulator SendScanCode(ushort scanCode)
-        {
-
-            bool extended = (scanCode & 0xFF00) == 0xE0;
-
-            Input[] arr = new Input[2];
-
-
-
-            //Create Key down
-            Input inp = new Input
-            {
-                Type = (uint) InputType.Keyboard,
-                Data = new MouseKeybdHardwareInput {Keyboard = new KeyboardInput()}
-            };
-            inp.Data.Keyboard.SetScanCode(scanCode);
-
-           
-
-            
-
-            //Add to array
-            arr[0] = inp;
-
-
-            //Key up
-            inp.Data.Keyboard.SetKeyUp();
-
-            //Add to array
-            arr[1] = inp;
-
-
-            _messageDispatcher.DispatchInput(arr);
-
-            return this;
-        }
 
         public IKeyboardSimulator SendScanCode(ushort scanCode, IKeyboardLayout keyboardLayout)
         {
@@ -279,7 +243,7 @@ namespace WindowsInputControl
             //Create Key down
             Input inp = new Input
             {
-                Type = (uint)InputType.Keyboard,
+                Type = InputType.Keyboard,
                 Data = new MouseKeybdHardwareInput { Keyboard = new KeyboardInput() }
             };
             inp.Data.Keyboard.KeyCode = (VirtualKeyCode) virtualKey;
@@ -307,16 +271,16 @@ namespace WindowsInputControl
 
             Input inp = new Input
             {
-                Type = (uint) InputType.Keyboard,
+                Type =  InputType.Keyboard,
                 Data = new MouseKeybdHardwareInput {Keyboard = new KeyboardInput()}
             };
             inp.Data.Keyboard.KeyCode = (VirtualKeyCode) virtualKey;
             inp.Data.Keyboard.ScanCode = scanCode;
-            inp.Data.Keyboard.Flags = (uint) flags;
+            inp.Data.Keyboard.Flags =  flags;
 
             if ((scanCode & 0xFF00) == 0xE000)
             {
-                inp.Data.Keyboard.Flags |= (uint) KeyboardFlag.ExtendedKey;
+                inp.Data.Keyboard.Flags |=  KeyboardFlag.ExtendedKey;
             }
 
             arr[0] = inp;
@@ -334,5 +298,203 @@ namespace WindowsInputControl
 
 
 
+        #region Send
+
+
+        public IKeyboardSimulator Send(KeyAction action, ushort scanCode, VirtualKeyCode virtualKey)
+        {
+
+            bool isExtend = (scanCode & 0xFF00) == 0xE000;
+
+            return SendInner(action, scanCode, isExtend, virtualKey);
+        }
+
+
+
+        #endregion
+
+
+
+
+
+
+        #region Scancode
+
+
+        public IKeyboardSimulator SendScanCode(ushort scanCode)
+        {
+            return SendScanCode(KeyAction.Press, scanCode);
+        }
+
+        public IKeyboardSimulator SendScanCode(ushort scanCode, bool isExtended)
+        {
+
+            return SendScanCode(KeyAction.Press, scanCode, isExtended);
+
+        }
+
+        public IKeyboardSimulator SendScanCode(KeyAction keyAction, ushort scanCode)
+        {
+            bool isExtended = (scanCode & 0xFF00) == 0xE000;
+
+            return SendScanCodeInner(keyAction,scanCode, isExtended);
+        }
+
+
+        public IKeyboardSimulator SendScanCode(KeyAction keyAction, ushort scanCode, bool isExtended)
+        {
+            ushort extendedScancode = scanCode;
+
+            if (isExtended)
+            {
+                extendedScancode |= 0xE000;
+            }
+
+            return SendScanCodeInner(keyAction, extendedScancode, isExtended);
+        }
+
+
+        #endregion
+
+
+        #region Private methods
+
+        private IKeyboardSimulator SendInner(KeyAction action, ushort scanCode, bool isExtended, VirtualKeyCode virtualKey)
+        {
+            if (action == KeyAction.Press) return SendScanCodeInner(scanCode, isExtended);
+
+            Input inpDown = new Input()
+            {
+                Type = InputType.Keyboard,
+                Data = new MouseKeybdHardwareInput()
+                {
+                    Keyboard = new KeyboardInput()
+                    {
+                        ScanCode = scanCode,
+                        KeyCode = virtualKey,
+                        Flags =  (isExtended ? KeyboardFlag.ExtendedKey : 0) | (action == KeyAction.Up ? KeyboardFlag.KeyUp : 0)
+                    }
+                }
+
+            };
+
+            _messageDispatcher.DispatchInput(new[] { inpDown });
+
+            return this;
+        }
+
+        private IKeyboardSimulator SendInner( ushort scanCode, bool isExtended, VirtualKeyCode virtualKey)
+        {
+            Input inpDown = new Input()
+            {
+                Type = InputType.Keyboard,
+                Data = new MouseKeybdHardwareInput()
+                {
+                    Keyboard = new KeyboardInput()
+                    {
+                        ScanCode = scanCode,
+                        KeyCode = virtualKey,
+                        Flags =  (isExtended ? KeyboardFlag.ExtendedKey : 0)
+                    }
+                }
+
+            };
+
+
+            Input inpUp = new Input()
+            {
+                Type = InputType.Keyboard,
+                Data = new MouseKeybdHardwareInput()
+                {
+                    Keyboard = new KeyboardInput()
+                    {
+                        ScanCode = scanCode,
+                        KeyCode = virtualKey,
+                        Flags =  KeyboardFlag.KeyUp | (isExtended ? KeyboardFlag.ExtendedKey : 0)
+                    }
+                }
+
+            };
+
+
+            _messageDispatcher.DispatchInput(new[] { inpDown, inpUp });
+
+            return this;
+        }
+
+
+
+        private IKeyboardSimulator SendScanCodeInner(KeyAction action, ushort scanCode, bool isExtended)
+        {
+            if (action == KeyAction.Press) return SendScanCodeInner(scanCode, isExtended);
+
+            Input inpDown = new Input()
+            {
+                Type = InputType.Keyboard,
+                Data = new MouseKeybdHardwareInput()
+                {
+                    Keyboard = new KeyboardInput()
+                    {
+                        ScanCode = scanCode,
+                        Flags = KeyboardFlag.ScanCode | (isExtended ? KeyboardFlag.ExtendedKey : 0) | (action == KeyAction.Up? KeyboardFlag.KeyUp : 0)
+                    }
+                }
+
+            };
+
+            _messageDispatcher.DispatchInput(new[] { inpDown});
+
+            return this;
+        }
+
+
+
+        private IKeyboardSimulator SendScanCodeInner(ushort scanCode, bool isExtended)
+        {
+            Input inpDown = new Input()
+            {
+                Type = InputType.Keyboard,
+                Data = new MouseKeybdHardwareInput()
+                {
+                    Keyboard = new KeyboardInput()
+                    {
+                        ScanCode = scanCode,
+                        Flags = KeyboardFlag.ScanCode | (isExtended? KeyboardFlag.ExtendedKey : 0)
+                    }
+                }
+
+            };
+
+
+            Input inpUp = new Input()
+            {
+                Type = InputType.Keyboard,
+                Data = new MouseKeybdHardwareInput()
+                {
+                    Keyboard = new KeyboardInput()
+                    {
+                        ScanCode = scanCode,
+                        Flags = KeyboardFlag.ScanCode | KeyboardFlag.KeyUp | (isExtended ? KeyboardFlag.ExtendedKey : 0)
+                    }
+                }
+
+            };
+
+
+           _messageDispatcher.DispatchInput(new []{inpDown, inpUp});
+
+            return this;
+        }
+
+        #endregion
+
+    }
+
+
+    public enum KeyAction
+    {
+        Down,
+        Up, 
+        Press
     }
 }

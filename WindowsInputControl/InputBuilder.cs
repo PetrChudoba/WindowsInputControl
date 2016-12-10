@@ -118,7 +118,7 @@ namespace WindowsInputControl
             var down =
                 new Input
                     {
-                        Type = (UInt32) InputType.Keyboard,
+                        Type =  InputType.Keyboard,
                         Data = new MouseKeybdHardwareInput()
                             {
                                 Keyboard =
@@ -126,7 +126,7 @@ namespace WindowsInputControl
                                         {
                                             KeyCode =  keyCode,
                                             ScanCode = 0,
-                                            Flags = IsExtendedKey(keyCode) ?  (ushort) KeyboardFlag.ExtendedKey : (ushort) 0,
+                                            Flags = IsExtendedKey(keyCode) ?   KeyboardFlag.ExtendedKey : (ushort) 0,
                                             Time = 0,
                                             ExtraInfo = IntPtr.Zero
                                         }
@@ -147,7 +147,7 @@ namespace WindowsInputControl
             var up =
                 new Input
                     {
-                        Type = (UInt32) InputType.Keyboard,
+                        Type =  InputType.Keyboard,
                         Data = new MouseKeybdHardwareInput()
                             {
                                 Keyboard =
@@ -155,7 +155,7 @@ namespace WindowsInputControl
                                         {
                                             KeyCode = keyCode,
                                             ScanCode = 0,
-                                            Flags = (ushort) (IsExtendedKey(keyCode)
+                                            Flags =  (IsExtendedKey(keyCode)
                                                                   ? KeyboardFlag.KeyUp | KeyboardFlag.ExtendedKey
                                                                   : KeyboardFlag.KeyUp),
                                             Time = 0,
@@ -178,7 +178,7 @@ namespace WindowsInputControl
             var down =
                 new Input
                 {
-                    Type = (UInt32)InputType.Keyboard,
+                    Type = InputType.Keyboard,
                     Data = new MouseKeybdHardwareInput()
                             {
                                 Keyboard =
@@ -186,7 +186,7 @@ namespace WindowsInputControl
                                         {
                                             KeyCode = 0,
                                             ScanCode = (ushort) ScanCode,
-                                            Flags =  (ushort) KeyboardFlag.ScanCode,
+                                            Flags =   KeyboardFlag.ScanCode,
                                             Time = 0,
                                             ExtraInfo = IntPtr.Zero
                                         }
@@ -208,7 +208,7 @@ namespace WindowsInputControl
             var down =
                new Input
                {
-                   Type = (UInt32)InputType.Keyboard,
+                   Type = InputType.Keyboard,
                    Data = new MouseKeybdHardwareInput()
                            {
                                 Keyboard =
@@ -216,7 +216,7 @@ namespace WindowsInputControl
                                         {
                                             KeyCode = 0,
                                             ScanCode = (ushort) ScanCode,
-                                            Flags =  (ushort) (KeyboardFlag.ScanCode |  KeyboardFlag.KeyUp),
+                                            Flags =   (KeyboardFlag.ScanCode |  KeyboardFlag.KeyUp),
                                             Time = 0,
                                             ExtraInfo = IntPtr.Zero
                                         }
@@ -252,7 +252,7 @@ namespace WindowsInputControl
 
             var down = new Input
                            {
-                               Type = (UInt32)InputType.Keyboard,
+                               Type = InputType.Keyboard,
                                Data = new MouseKeybdHardwareInput()
                                    {
                                        Keyboard =
@@ -260,7 +260,7 @@ namespace WindowsInputControl
                                                {
                                                    KeyCode = 0,
                                                    ScanCode = scanCode,
-                                                   Flags = (ushort) KeyboardFlag.Unicode,
+                                                   Flags =  KeyboardFlag.Unicode,
                                                    Time = 0,
                                                    ExtraInfo = IntPtr.Zero
                                                }
@@ -269,7 +269,7 @@ namespace WindowsInputControl
 
             var up = new Input
                          {
-                             Type = (UInt32)InputType.Keyboard,
+                             Type = InputType.Keyboard,
                              Data = new MouseKeybdHardwareInput()
                                  {
                                      Keyboard =
@@ -278,7 +278,7 @@ namespace WindowsInputControl
                                                  KeyCode = 0,
                                                  ScanCode = scanCode,
                                                  Flags =
-                                                     (ushort)(KeyboardFlag.KeyUp | KeyboardFlag.Unicode),
+                                                   (KeyboardFlag.KeyUp | KeyboardFlag.Unicode),
                                                  Time = 0,
                                                  ExtraInfo = IntPtr.Zero
                                              }
@@ -290,8 +290,8 @@ namespace WindowsInputControl
             // we need to include the KEYEVENTF_EXTENDEDKEY flag in the Flags property. 
             if ((scanCode & 0xFF00) == 0xE000)
             {
-                down.Data.Keyboard.Flags |= (ushort) KeyboardFlag.ExtendedKey;
-                up.Data.Keyboard.Flags |= (ushort)KeyboardFlag.ExtendedKey;
+                down.Data.Keyboard.Flags |=  KeyboardFlag.ExtendedKey;
+                up.Data.Keyboard.Flags |= KeyboardFlag.ExtendedKey;
             }
 
             _inputList.Add(down);

@@ -10,9 +10,10 @@
         <TextBox Text="{Binding ScanCode, Mode=TwoWay}" />
         <TextBox Text="{Binding VirtualKey, Mode=TwoWay}" />
         <TextBox Text="{Binding Flags, Mode=TwoWay}" />
+        <TextBox Text="Sample text " />
         <Button Click="ButtonBase_OnClick" >Send</Button>
         
         <Rectangle Height="23" Fill="BlueViolet"></Rectangle>
-        <Button Click="ButtonBase_OnClick2"> Send Scan code</Button>
+        <Button Click="ButtonBase_OnClick2"> Replay</Button>
     </StackPanel>
 </Window>

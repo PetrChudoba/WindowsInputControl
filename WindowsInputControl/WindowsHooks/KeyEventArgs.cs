@@ -87,6 +87,10 @@ namespace WindowsInputControl.Hooks
             get { return !IsUpEvent; }
         }
 
+        public KeyAction KeyAction
+        {
+            get { return IsUpEvent ? KeyAction.Up : KeyAction.Down; }
+        }
 
 
 

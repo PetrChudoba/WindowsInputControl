@@ -40,7 +40,7 @@ namespace WindowsInputControl.Native
         /// 
         /// mapped  to  :   DWORD     dwFlags;
         /// </summary>
-        public uint Flags;
+        public KeyboardFlag Flags;
 
         /// <summary>
         /// Time stamp for the event, in milliseconds. If this parameter is zero, the system will provide its own time stamp. 
@@ -58,16 +58,45 @@ namespace WindowsInputControl.Native
 
 
 
+
+
+        public KeyboardInput(ushort scanCode, bool extended, ushort virtualKey, bool isUp)
+        {
+
+            this.ScanCode = scanCode;
+            this.KeyCode = (VirtualKeyCode) virtualKey;
+            this.Flags = 0;
+            this.Time = 0;
+            this.ExtraInfo = IntPtr.Zero;
+
+
+            if (extended)
+            {
+
+                this.ScanCode |= 0xE000;
+                this.Flags |= KeyboardFlag.ExtendedKey;
+            }
+
+            if (isUp)
+            {
+                this.Flags |= KeyboardFlag.KeyUp;
+            }
+
+                
+        }
+
+
+
         public void SetExtended()
         {
-            Flags |= (uint) KeyboardFlag.ExtendedKey;
+            Flags |=  KeyboardFlag.ExtendedKey;
          
         }
 
 
         public void SetKeyUp()
         {
-            Flags |= (uint) KeyboardFlag.KeyUp;
+            Flags |=  KeyboardFlag.KeyUp;
         }
 
         public void SetScanCode(ushort scanCode)
@@ -77,7 +106,7 @@ namespace WindowsInputControl.Native
 
             if ( (scanCode & 0xFF00) == 0xE000)
             {
-                Flags |= (uint) KeyboardFlag.ScanCode; 
+                Flags |=  KeyboardFlag.ScanCode; 
             } 
            
             
@@ -97,7 +126,7 @@ namespace WindowsInputControl.Native
 
         private bool IsSetFlag(KeyboardFlag flag)
         {
-           return (Flags & (ushort) flag) != 0;
+           return (Flags & flag) != 0;
         }
 
        

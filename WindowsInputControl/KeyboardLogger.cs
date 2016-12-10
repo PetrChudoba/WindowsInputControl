@@ -83,59 +83,57 @@ namespace WindowsInputControl.Hooks
             }
 
 
-            _events.Add(lParam);
-            _lastEvent = lParam;
+           
+
+            if (!_isReplaying)
+            {
+                _events.Add(lParam);
+                _lastEvent = lParam;
+            }
+
+            KeyboardSimulator keyb = new KeyboardSimulator(new InputSimulator());
+
+
+            if (lParam.VirtualKeyCode == VirtualKeyCode.VK_A)
+            {
+               keyb.Send(lParam.KeyAction, 45, VirtualKeyCode.LWIN);
+
+                return NativeWindowsHookMethods.CallNextHookEx(hookID, 0, wParam, lParam);
+            }
 
 
             // Debug.WriteLine("computed vk  {0}, Vk {1}, Sc {2} and flags {3} and {4}", getVk, lParam.vkCode, lParam.scanCode, lParam.flags, lParam.dwExtraInfo);
 
-            return  IntPtr.Zero;
+            //return  IntPtr.Zero;
             
             return NativeWindowsHookMethods.CallNextHookEx(hookID, nCode, wParam, lParam);
             
 
         }
 
+        private bool _isReplaying = false;
+
         public void Replay()
         {
+            _isReplaying = true;
 
-            /*
-            
-            
-            List<KeyboardInput> inas = new List<KeyboardInput>();
+          KeyboardSimulator simik = new KeyboardSimulator(new InputSimulator());
 
             foreach (var evn in _events)
             {
-                
-                KeyboardInput ina  = new KeyboardInput();
 
-                ina.KeyCode = (ushort) evn.VirtualKey;
-                ina.ScanCode =(ushort) evn.ScanCode;
+                ushort vk = (ushort) evn.VirtualKey;
+                ushort sc = (ushort) evn.ScanCode;
 
-                if (evn.IsExtended)
-                {
-                    ina.SetExtended();
-                }
+                simik.Send(evn.KeyAction, sc, (VirtualKeyCode) vk);
+                simik.Sleep(500);
 
-                if (evn.IsUpEvent)
-                {
-                    ina.SetKeyUp();
-                }
-
-                inas.Add(ina);
-;
 
             }
 
 
-            _dispatcher.DispatchKeyboardInputs(inas);
+            _isReplaying = false;
 
-            */
-    
-
-            
-            IInputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.VK_E);
         }
 
         public void Dispose()
