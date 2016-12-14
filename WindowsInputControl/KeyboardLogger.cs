@@ -32,12 +32,12 @@ namespace WindowsInputControl.Hooks
 
         public void SetHook()
         {
-            hookID = NativeWindowsHookMethods.SetWindowsHookEx(WH_KEYBOARD_LL, proc, IntPtr.Zero, 0);
+            hookID = NativeKeyboardHooks.SetWindowsHookEx(WH_KEYBOARD_LL, proc, IntPtr.Zero, 0);
         }
 
         public bool RemoveHook()
         {
-            return NativeWindowsHookMethods.UnhookWindowsHookEx(hookID);
+            return NativeKeyboardHooks.UnhookWindowsHookEx(hookID);
         }
 
 
@@ -92,7 +92,7 @@ namespace WindowsInputControl.Hooks
                 _lastEvent = lParam;
             }
          
-          return NativeWindowsHookMethods.CallNextHookEx(hookID, nCode, wParam, lParam);
+          return NativeKeyboardHooks.CallNextHookEx(hookID, nCode, wParam, lParam);
             
 
         }
@@ -126,7 +126,7 @@ namespace WindowsInputControl.Hooks
 
         public void Dispose()
         {
-            NativeWindowsHookMethods.UnhookWindowsHookEx(hookID);
+            NativeKeyboardHooks.UnhookWindowsHookEx(hookID);
         }
     }
 }

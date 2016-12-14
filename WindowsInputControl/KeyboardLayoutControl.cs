@@ -44,8 +44,8 @@ namespace WindowsInputControl.Hooks
 
 
             //Find thread
-            IntPtr fore = NativeWindowInfoMethods.GetForegroundWindow();
-            int tpid = NativeWindowInfoMethods.GetWindowThreadProcessId(fore, IntPtr.Zero);
+            IntPtr fore = NativeWindowInfo.GetForegroundWindow();
+            int tpid = NativeWindowInfo.GetWindowThreadProcessId(fore, IntPtr.Zero);
 
 
             //Get handle and identifier for active layout

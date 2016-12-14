@@ -1,4 +1,5 @@
 ﻿using System;
+using WindowsInputControl.Hooks;
 using WindowsInputControl.Native;
 
 namespace WindowsInputControl
@@ -32,7 +33,7 @@ namespace WindowsInputControl
         /// </remarks>
         public bool IsKeyDown(VirtualKeyCode keyCode)
         {
-            Int16 result = NativeMethods.GetKeyState((UInt16)keyCode);
+            Int16 result = NativeKeyboardMethods.GetKeyState((UInt16)keyCode);
             return (result < 0);
         }
 
@@ -91,7 +92,7 @@ namespace WindowsInputControl
         /// </remarks>
         public bool IsHardwareKeyDown(VirtualKeyCode keyCode)
         {
-            var result = NativeMethods.GetAsyncKeyState((UInt16)keyCode);
+            var result = NativeKeyboardMethods.GetAsyncKeyState((UInt16)keyCode);
             return (result < 0);
         }
 
@@ -150,7 +151,7 @@ namespace WindowsInputControl
         /// </remarks>
         public bool IsTogglingKeyInEffect(VirtualKeyCode keyCode)
         {
-            Int16 result = NativeMethods.GetKeyState((UInt16)keyCode);
+            Int16 result = NativeKeyboardMethods.GetKeyState((UInt16)keyCode);
             return (result & 0x01) == 0x01;
         }
     }

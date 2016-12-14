@@ -4,7 +4,7 @@ using WindowsInputControl.Native;
 
 namespace WindowsInputControl.Hooks
 {
-    internal static class NativeWindowsHookMethods
+    internal static class NativeKeyboardHooks
     {
 
         [DllImport("user32.dll")]

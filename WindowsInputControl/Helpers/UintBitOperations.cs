@@ -34,6 +34,13 @@ namespace WindowsInputControl.Helpers
         }
 
 
+
+        /// <summary>
+        /// Gets the binary representation of the specified length.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="requiredLength">Length of the required.</param>
+        /// <returns>System.String.</returns>
         public static string GetBinaryRepresentation(this uint number, int requiredLength)
         {
             string binaryStr = Convert.ToString(number, 2);

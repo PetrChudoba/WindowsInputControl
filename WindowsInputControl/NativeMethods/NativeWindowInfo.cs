@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace WindowsInputControl.Hooks
 {
-    internal static class NativeWindowInfoMethods
+    internal static class NativeWindowInfo
     {
         [DllImport("user32.dll")]
         public static extern IntPtr GetForegroundWindow();

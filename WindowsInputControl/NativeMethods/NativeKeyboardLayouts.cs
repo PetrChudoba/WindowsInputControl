@@ -1,15 +1,41 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 
-namespace WindowsInputControl.Native
+namespace WindowsInputControl.Hooks
 {
-    /// <summary>
-    /// References all of the Native Windows API methods for the WindowsInput functionality.
-    /// </summary>
-    internal static class NativeMethods
+    internal static class NativeKeyboardMethods
     {
+
+        public const int KeyboardNameLength = 8;
+
+
+        [DllImport("user32.dll")]
+        public static extern int MapVirtualKeyEx(int uCode, int uMapType, IntPtr dwhkl);
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr GetKeyboardLayout(int idThread);
+
+        [DllImport("user32.dll")]
+        public static extern long GetKeyboardLayoutName(StringBuilder pwszKLID);
+
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr LoadKeyboardLayout(string pwszKLID, uint Flags);
+
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr ActivateKeyboardLayout(IntPtr hkl, uint flags);
+
+
+        [DllImport("user32.dll")]
+        public static extern int GetKeyboardLayoutList(int nBuff, [Out] IntPtr[] lpList);
+
+
+
+
+
+
         /// <summary>
         /// The GetAsyncKeyState function determines whether a key is up or down at the time the function is called, and whether the key was pressed after a previous call to GetAsyncKeyState. (See: http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
         /// </summary>
@@ -76,38 +102,5 @@ namespace WindowsInputControl.Native
         /// </remarks>
         [DllImport("user32.dll", SetLastError = true)]
         public static extern Int16 GetKeyState(UInt16 virtualKeyCode);
-
-        /// <summary>
-        /// The SendInput function synthesizes keystrokes, mouse motions, and button clicks.
-        /// </summary>
-        /// <param name="numberOfInputs">Number of structures in the Inputs array.</param>
-        /// <param name="inputs">Pointer to an array of INPUT structures. Each structure represents an event to be inserted into the keyboard or mouse input stream.</param>
-        /// <param name="sizeOfInputStructure">Specifies the size, in bytes, of an INPUT structure. If cbSize is not the size of an INPUT structure, the function fails.</param>
-        /// <returns>The function returns the number of events that it successfully inserted into the keyboard or mouse input stream. If the function returns zero, the input was already blocked by another thread. To get extended error information, call GetLastError.Microsoft Windows Vista. This function fails when it is blocked by User Interface Privilege Isolation (UIPI). Note that neither GetLastError nor the return value will indicate the failure was caused by UIPI blocking.</returns>
-        /// <remarks>
-        /// Microsoft Windows Vista. This function is subject to UIPI. Applications are permitted to inject input only into applications that are at an equal or lesser integrity level.
-        /// The SendInput function inserts the events in the INPUT structures serially into the keyboard or mouse input stream. These events are not interspersed with other keyboard or mouse input events inserted either by the user (with the keyboard or mouse) or by calls to keybd_event, mouse_event, or other calls to SendInput.
-        /// This function does not reset the keyboard's current state. Any keys that are already pressed when the function is called might interfere with the events that this function generates. To avoid this problem, check the keyboard's state with the GetAsyncKeyState function and correct as necessary.
-        /// </remarks>
-        [DllImport("user32.dll", SetLastError = true)]
-        public static extern UInt32 SendInput(UInt32 numberOfInputs, Input[] inputs, Int32 sizeOfInputStructure);
-
-        /// <summary>
-        /// The GetMessageExtraInfo function retrieves the extra message information for the current thread. Extra message information is an application- or driver-defined value associated with the current thread's message queue. 
-        /// </summary>
-        /// <returns></returns>
-        /// <remarks>To set a thread's extra message information, use the SetMessageExtraInfo function. </remarks>
-        [DllImport("user32.dll")]
-        public static extern IntPtr GetMessageExtraInfo();
-
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="uCode"></param>
-        /// <param name="uMapType"></param>
-        /// <returns></returns>
-        [DllImport("user32.dll")]
-        public static extern uint MapVirtualKey(uint uCode, uint uMapType);
     }
 }
