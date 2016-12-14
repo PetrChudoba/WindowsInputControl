@@ -1,103 +1,112 @@
 ﻿using System;
 using System.Collections.Generic;
 using WindowsInputControl.Hooks;
-using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl
 {
     /// <summary>
-    /// The service contract for a keyboard simulator for the Windows platform.
+    ///     The service contract for a keyboard simulator for the Windows platform.
     /// </summary>
     public interface IKeyboardSimulator
     {
-       
-
         /// <summary>
-        /// Simulates the key down gesture for the specified key.
+        ///     Simulates the key down gesture for the specified key.
         /// </summary>
-        /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
-        IKeyboardSimulator KeyDown(VirtualKeyCode keyCode);
+        /// <param name="virtualKeyhe 
+        /// <see cref="VirtualKey" />
+        /// for the key.
+        /// </param>
+        IKeyboardSimulator KeyDown(VirtualKey virtualKey);
 
         /// <summary>
-        /// Simulates the key press gesture for the specified key.
+        ///     Simulates the key press gesture for the specified key.
         /// </summary>
-        /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
-        IKeyboardSimulator KeyPress(VirtualKeyCode keyCode);
+        /// <param name="virtualKeyhe 
+        /// <see cref="VirtualKey" />
+        /// for the key.
+        /// </param>
+        IKeyboardSimulator KeyPress(VirtualKey virtualKey);
 
         /// <summary>
-        /// Simulates a key press for each of the specified key codes in the order they are specified.
+        ///     Simulates a key press for each of the specified key codes in the order they are specified.
         /// </summary>
-        /// <param name="keyCodes"></param>
-        IKeyboardSimulator KeyPress(params VirtualKeyCode[] keyCodes);
+        /// <param name="virtualKey
+        /// </param>
+        IKeyboardSimulator KeyPress(params VirtualKey[] virtualKey);
 
         /// <summary>
-        /// Simulates the key up gesture for the specified key.
+        ///     Simulates the key up gesture for the specified key.
         /// </summary>
-        /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
-        IKeyboardSimulator KeyUp(VirtualKeyCode keyCode);
+        /// <param name="virtualKeyhe 
+        /// <see cref="VirtualKey" />
+        /// for the key.
+        /// </param>
+        IKeyboardSimulator KeyUp(VirtualKey virtualKey);
 
         /// <summary>
-        /// Simulates a modified keystroke where there are multiple modifiers and multiple keys like CTRL-ALT-K-C where CTRL and ALT are the modifierKeys and K and C are the keys.
-        /// The flow is Modifiers KeyDown in order, Keys Press in order, Modifiers KeyUp in reverse order.
+        ///     Simulates a modified keystroke where there are multiple modifiers and multiple keys like CTRL-ALT-K-C where CTRL
+        ///     and ALT are the modifierKeys and K and C are the keys.
+        ///     The flow is Modifiers KeyDown in order, Keys Press in order, Modifiers KeyUp in reverse order.
         /// </summary>
-        /// <param name="modifierKeyCodes">The list of <see cref="VirtualKeyCode"/>s for the modifier keys.</param>
-        /// <param name="keyCodes">The list of <see cref="VirtualKeyCode"/>s for the keys to simulate.</param>
-        IKeyboardSimulator ModifiedKeyStroke(IEnumerable<VirtualKeyCode> modifierKeyCodes, IEnumerable<VirtualKeyCode> keyCodes);
+        /// <param name="modifierKeyCodes">The list of <see cref="VirtualKey" />s for the modifier keys.</param>
+        /// <param name="keyCodes">The list of <see cref="VirtualKey" />s for the keys to simulate.</param>
+        IKeyboardSimulator ModifiedKeyStroke(IEnumerable<VirtualKey> modifierKeyCodes, IEnumerable<VirtualKey> keyCodes);
 
         /// <summary>
-        /// Simulates a modified keystroke where there are multiple modifiers and one key like CTRL-ALT-C where CTRL and ALT are the modifierKeys and C is the key.
-        /// The flow is Modifiers KeyDown in order, Key Press, Modifiers KeyUp in reverse order.
+        ///     Simulates a modified keystroke where there are multiple modifiers and one key like CTRL-ALT-C where CTRL and ALT
+        ///     are the modifierKeys and C is the key.
+        ///     The flow is Modifiers KeyDown in order, Key Press, Modifiers KeyUp in reverse order.
         /// </summary>
-        /// <param name="modifierKeyCodes">The list of <see cref="VirtualKeyCode"/>s for the modifier keys.</param>
-        /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
-        IKeyboardSimulator ModifiedKeyStroke(IEnumerable<VirtualKeyCode> modifierKeyCodes, VirtualKeyCode keyCode);
+        /// <param name="modifierKeyCodes">The list of <see cref="VirtualKey" />s for the modifier keys.</param>
+        /// <param name="virtualKeyhe 
+        /// <see cref="VirtualKey" />
+        /// for the key.
+        /// </param>
+        IKeyboardSimulator ModifiedKeyStroke(IEnumerable<VirtualKey> modifierKeyCodes, VirtualKey virtualKey);
 
         /// <summary>
-        /// Simulates a modified keystroke where there is one modifier and multiple keys like CTRL-K-C where CTRL is the modifierKey and K and C are the keys.
-        /// The flow is Modifier KeyDown, Keys Press in order, Modifier KeyUp.
+        ///     Simulates a modified keystroke where there is one modifier and multiple keys like CTRL-K-C where CTRL is the
+        ///     modifierKey and K and C are the keys.
+        ///     The flow is Modifier KeyDown, Keys Press in order, Modifier KeyUp.
         /// </summary>
-        /// <param name="modifierKey">The <see cref="VirtualKeyCode"/> for the modifier key.</param>
-        /// <param name="keyCodes">The list of <see cref="VirtualKeyCode"/>s for the keys to simulate.</param>
-        IKeyboardSimulator ModifiedKeyStroke(VirtualKeyCode modifierKey, IEnumerable<VirtualKeyCode> keyCodes);
+        /// <param name="modifierKey">The <see cref="VirtualKey" /> for the modifier key.</param>
+        /// <param name="keyCodes">The list of <see cref="VirtualKey" />s for the keys to simulate.</param>
+        IKeyboardSimulator ModifiedKeyStroke(VirtualKey modifierKey, IEnumerable<VirtualKey> keyCodes);
 
         /// <summary>
-        /// Simulates a simple modified keystroke like CTRL-C where CTRL is the modifierKey and C is the key.
-        /// The flow is Modifier KeyDown, Key Press, Modifier KeyUp.
+        ///     Simulates a simple modified keystroke like CTRL-C where CTRL is the modifierKey and C is the key.
+        ///     The flow is Modifier KeyDown, Key Press, Modifier KeyUp.
         /// </summary>
-        /// <param name="modifierKeyCode">The <see cref="VirtualKeyCode"/> for the  modifier key.</param>
-        /// <param name="keyCode">The <see cref="VirtualKeyCode"/> for the key.</param>
-        IKeyboardSimulator ModifiedKeyStroke(VirtualKeyCode modifierKeyCode, VirtualKeyCode keyCode);
+        /// <param name="modifierKeyCode">The <see cref="VirtualKey" /> for the  modifier key.</param>
+        /// <param name="virtualKeyhe 
+        /// <see cref="VirtualKey" />
+        /// for the key.
+        /// </param>
+        IKeyboardSimulator ModifiedKeyStroke(VirtualKey modifierKey, VirtualKey virtualKey);
 
         /// <summary>
-        /// Simulates uninterrupted text entry via the keyboard.
+        ///     Simulates uninterrupted text entry via the keyboard.
         /// </summary>
         /// <param name="text">The text to be simulated.</param>
         IKeyboardSimulator TextEntry(string text);
 
         /// <summary>
-        /// Simulates a single character text entry via the keyboard.
+        ///     Simulates a single character text entry via the keyboard.
         /// </summary>
         /// <param name="character">The unicode character to be simulated.</param>
         IKeyboardSimulator TextEntry(char character);
 
         /// <summary>
-        /// Sleeps the executing thread to create a pause between simulated inputs.
+        ///     Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
         /// <param name="millsecondsTimeout">The number of milliseconds to wait.</param>
         IKeyboardSimulator Sleep(int millsecondsTimeout);
 
         /// <summary>
-        /// Sleeps the executing thread to create a pause between simulated inputs.
+        ///     Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
         /// <param name="timeout">The time to wait.</param>
         IKeyboardSimulator Sleep(TimeSpan timeout);
-
-
-
- 
-
-
-
-
     }
 }

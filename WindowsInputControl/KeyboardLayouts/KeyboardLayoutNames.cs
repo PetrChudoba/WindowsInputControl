@@ -1,10 +1,9 @@
-﻿namespace WindowsInputControl.Hooks
+﻿namespace WindowsInputControl.KeyboardLayouts
 {
-    class KeyboardLayoutNames : IKeyboardLayoutNames
+    internal class KeyboardLayoutNames : IKeyboardLayoutNames
     {
         public string GetLayoutName(string identifier)
         {
-
             switch (identifier)
             {
                 case "0000041C":

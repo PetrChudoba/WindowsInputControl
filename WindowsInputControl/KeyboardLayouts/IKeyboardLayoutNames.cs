@@ -1,4 +1,4 @@
-﻿namespace WindowsInputControl.Hooks
+﻿namespace WindowsInputControl.KeyboardLayouts
 {
     internal interface IKeyboardLayoutNames
     {

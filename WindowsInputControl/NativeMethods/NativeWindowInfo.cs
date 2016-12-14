@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace WindowsInputControl.Hooks
+namespace WindowsInputControl.NativeMethods
 {
     internal static class NativeWindowInfo
     {
@@ -10,6 +10,5 @@ namespace WindowsInputControl.Hooks
 
         [DllImport("user32.dll")]
         public static extern int GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
-
     }
 }

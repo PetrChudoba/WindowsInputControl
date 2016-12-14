@@ -1,25 +1,17 @@
 ﻿using System;
 using System.Diagnostics.Contracts;
 using WindowsInputControl.Helpers;
-using WindowsInputControl.Native;
+using WindowsInputControl.NativeMethods;
 using WindowsInputControl.WindowsInputs.Keyboard;
 
-namespace WindowsInputControl.Hooks
+namespace WindowsInputControl.KeyboardLayouts
 {
-    internal class WindowsKeyboardLayouts : IKeyboardLayout
+    internal class WindowsKeyboardLayout : IKeyboardLayout
     {
-        #region Fields
-
-        private readonly IntPtr _keyboardHandle;
-        private readonly string _keyboardIdentifier;
-
-        #endregion
-
         #region Ctor
-        
-        public WindowsKeyboardLayouts(IntPtr keyboardHandle, string keyboardIdentifier)
+
+        public WindowsKeyboardLayout(IntPtr keyboardHandle, string keyboardIdentifier)
         {
-          
             Contract.Requires(keyboardHandle != null);
             Contract.Requires(!string.IsNullOrEmpty(keyboardIdentifier));
             Contract.Requires(keyboardIdentifier.Length == 8);
@@ -27,6 +19,13 @@ namespace WindowsInputControl.Hooks
             _keyboardHandle = keyboardHandle;
             _keyboardIdentifier = keyboardIdentifier;
         }
+
+        #endregion
+
+        #region Fields
+
+        private readonly IntPtr _keyboardHandle;
+        private readonly string _keyboardIdentifier;
 
         #endregion
 
@@ -46,15 +45,14 @@ namespace WindowsInputControl.Hooks
 
         #region Methods
 
-        public VirtualKeyCode GetVirtualKey(ScanCode scanCode)
+        public VirtualKey GetVirtualKey(ScanCode scanCode)
         {
-            return (VirtualKeyCode) NativeKeyboardMethods.MapVirtualKeyEx(scanCode.Code, 3, _keyboardHandle);
+            return (VirtualKey) NativeKeyboardMethods.MapVirtualKeyEx(scanCode.Code, 3, _keyboardHandle);
         }
 
-        public ScanCode GetScanCode(VirtualKeyCode virtualKey)
+        public ScanCode GetScanCode(VirtualKey virtualKey)
         {
-
-            ushort scanCode = (ushort) NativeKeyboardMethods.MapVirtualKeyEx((int)virtualKey, 4, _keyboardHandle);
+            ushort scanCode = (ushort) NativeKeyboardMethods.MapVirtualKeyEx((int) virtualKey, 4, _keyboardHandle);
             return new ScanCode(scanCode);
         }
 

@@ -87,16 +87,16 @@
   <ItemGroup>
     <Compile Include="Helpers\ServiceLocator.cs" />
     <Compile Include="Helpers\UintBitOperations.cs" />
-    <Compile Include="IKeyboardLayout.cs" />
+    <Compile Include="KeyboardLayouts\IKeyboardLayout.cs" />
     <Compile Include="NativeMethods\NativeInputs.cs" />
-    <Compile Include="NativeMethods\KeyboardHookHandlerDelegate.cs" />
-    <Compile Include="IKeyboardLayoutNames.cs" />
-    <Compile Include="WindowsHooks\KeyEventArgs.cs" />
+    <Compile Include="WindowsHooks\Keyboard\KeyboardHookHandlerDelegate.cs" />
+    <Compile Include="KeyboardLayouts\IKeyboardLayoutNames.cs" />
+    <Compile Include="WindowsHooks\Keyboard\KeyEventArgs.cs" />
     <Compile Include="NativeMethods\NativeKeyboardHooks.cs" />
-    <Compile Include="KeyboardLayoutControl.cs" />
+    <Compile Include="KeyboardLayouts\KeyboardLayoutControl.cs" />
     <Compile Include="KeyboardLogger.cs" />
-    <Compile Include="KeyboardLayoutNames.cs" />
-    <Compile Include="WindowsHooks\KeyEventType.cs" />
+    <Compile Include="KeyboardLayouts\KeyboardLayoutNames.cs" />
+    <Compile Include="WindowsHooks\Keyboard\KeyEventType.cs" />
     <Compile Include="NativeMethods\NativeKeyboardLayouts.cs" />
     <Compile Include="NativeMethods\NativeWindowInfo.cs" />
     <Compile Include="IInputDeviceStateAdaptor.cs" />
@@ -118,12 +118,12 @@
     <Compile Include="WindowsInputs\Mouse\MouseFlag.cs" />
     <Compile Include="WindowsInputs\Mouse\MouseInput.cs" />
     <Compile Include="WindowsInputs\MouseKeybdHardwareInput.cs" />
-    <Compile Include="WindowsInputs\Keyboard\VirtualKeyCode.cs" />
+    <Compile Include="WindowsInputs\Keyboard\VirtualKey.cs" />
     <Compile Include="WindowsInputs\Mouse\XButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsInputDeviceStateAdaptor.cs" />
     <Compile Include="WindowsInputMessageDispatcher.cs" />
-    <Compile Include="WindowsKeyboardLayouts.cs" />
+    <Compile Include="KeyboardLayouts\WindowsKeyboardLayout.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

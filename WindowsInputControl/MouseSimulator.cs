@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading;
-using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs;
 
 namespace WindowsInputControl
 {
     /// <summary>
-    /// Implements the <see cref="IMouseSimulator"/> interface by calling the an <see cref="IInputMessageDispatcher"/> to simulate Mouse gestures.
+    ///     Implements the <see cref="IMouseSimulator" /> interface by calling the an <see cref="IInputMessageDispatcher" /> to
+    ///     simulate Mouse gestures.
     /// </summary>
     public class MouseSimulator : IMouseSimulator
     {
@@ -14,14 +15,15 @@ namespace WindowsInputControl
         private readonly IInputSimulator _inputSimulator;
 
         /// <summary>
-        /// The instance of the <see cref="IInputMessageDispatcher"/> to use for dispatching <see cref="Input"/> messages.
+        ///     The instance of the <see cref="IInputMessageDispatcher" /> to use for dispatching <see cref="Input" /> messages.
         /// </summary>
         private readonly IInputMessageDispatcher _messageDispatcher;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MouseSimulator"/> class using an instance of a <see cref="WindowsInputMessageDispatcher"/> for dispatching <see cref="Input"/> messages.
+        ///     Initializes a new instance of the <see cref="MouseSimulator" /> class using an instance of a
+        ///     <see cref="WindowsInputMessageDispatcher" /> for dispatching <see cref="Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
+        /// <param name="inputSimulator">The <see cref="IInputSimulator" /> that owns this instance.</param>
         public MouseSimulator(IInputSimulator inputSimulator)
         {
             if (inputSimulator == null) throw new ArgumentNullException("inputSimulator");
@@ -31,11 +33,15 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MouseSimulator"/> class using the specified <see cref="IInputMessageDispatcher"/> for dispatching <see cref="Input"/> messages.
+        ///     Initializes a new instance of the <see cref="MouseSimulator" /> class using the specified
+        ///     <see cref="IInputMessageDispatcher" /> for dispatching <see cref="Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator"/> that owns this instance.</param>
-        /// <param name="messageDispatcher">The <see cref="IInputMessageDispatcher"/> to use for dispatching <see cref="Input"/> messages.</param>
-        /// <exception cref="InvalidOperationException">If null is passed as the <paramref name="messageDispatcher"/>.</exception>
+        /// <param name="inputSimulator">The <see cref="IInputSimulator" /> that owns this instance.</param>
+        /// <param name="messageDispatcher">
+        ///     The <see cref="IInputMessageDispatcher" /> to use for dispatching <see cref="Input" />
+        ///     messages.
+        /// </param>
+        /// <exception cref="InvalidOperationException">If null is passed as the <paramref name="messageDispatcher" />.</exception>
         internal MouseSimulator(IInputSimulator inputSimulator, IInputMessageDispatcher messageDispatcher)
         {
             if (inputSimulator == null)
@@ -43,30 +49,25 @@ namespace WindowsInputControl
 
             if (messageDispatcher == null)
                 throw new InvalidOperationException(
-                    string.Format("The {0} cannot operate with a null {1}. Please provide a valid {1} instance to use for dispatching {2} messages.",
-                    typeof(MouseSimulator).Name, typeof(IInputMessageDispatcher).Name, typeof(Input).Name));
+                    string.Format(
+                        "The {0} cannot operate with a null {1}. Please provide a valid {1} instance to use for dispatching {2} messages.",
+                        typeof(MouseSimulator).Name, typeof(IInputMessageDispatcher).Name, typeof(Input).Name));
 
             _inputSimulator = inputSimulator;
             _messageDispatcher = messageDispatcher;
         }
 
         /// <summary>
-        /// Gets the <see cref="IKeyboardSimulator"/> instance for simulating Keyboard input.
+        ///     Gets the <see cref="IKeyboardSimulator" /> instance for simulating Keyboard input.
         /// </summary>
-        /// <value>The <see cref="IKeyboardSimulator"/> instance.</value>
-        public IKeyboardSimulator Keyboard { get { return _inputSimulator.Keyboard; } }
-
-        /// <summary>
-        /// Sends the list of <see cref="Input"/> messages using the <see cref="IInputMessageDispatcher"/> instance.
-        /// </summary>
-        /// <param name="inputList">The <see cref="System.Array"/> of <see cref="Input"/> messages to send.</param>
-        private void SendSimulatedInput(Input[] inputList)
+        /// <value>The <see cref="IKeyboardSimulator" /> instance.</value>
+        public IKeyboardSimulator Keyboard
         {
-            _messageDispatcher.DispatchInput(inputList);
+            get { return _inputSimulator.Keyboard; }
         }
 
         /// <summary>
-        /// Simulates mouse movement by the specified distance measured as a delta from the current mouse location in pixels.
+        ///     Simulates mouse movement by the specified distance measured as a delta from the current mouse location in pixels.
         /// </summary>
         /// <param name="pixelDeltaX">The distance in pixels to move the mouse horizontally.</param>
         /// <param name="pixelDeltaY">The distance in pixels to move the mouse vertically.</param>
@@ -78,31 +79,47 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates mouse movement to the specified location on the primary display device.
+        ///     Simulates mouse movement to the specified location on the primary display device.
         /// </summary>
-        /// <param name="absoluteX">The destination's absolute X-coordinate on the primary display device where 0 is the extreme left hand side of the display device and 65535 is the extreme right hand side of the display device.</param>
-        /// <param name="absoluteY">The destination's absolute Y-coordinate on the primary display device where 0 is the top of the display device and 65535 is the bottom of the display device.</param>
+        /// <param name="absoluteX">
+        ///     The destination's absolute X-coordinate on the primary display device where 0 is the extreme
+        ///     left hand side of the display device and 65535 is the extreme right hand side of the display device.
+        /// </param>
+        /// <param name="absoluteY">
+        ///     The destination's absolute Y-coordinate on the primary display device where 0 is the top of the
+        ///     display device and 65535 is the bottom of the display device.
+        /// </param>
         public IMouseSimulator MoveMouseTo(double absoluteX, double absoluteY)
         {
-            var inputList = new InputBuilder().AddAbsoluteMouseMovement((int)Math.Truncate(absoluteX), (int)Math.Truncate(absoluteY)).ToArray();
+            var inputList =
+                new InputBuilder().AddAbsoluteMouseMovement((int) Math.Truncate(absoluteX),
+                    (int) Math.Truncate(absoluteY)).ToArray();
             SendSimulatedInput(inputList);
             return this;
         }
 
         /// <summary>
-        /// Simulates mouse movement to the specified location on the Virtual Desktop which includes all active displays.
+        ///     Simulates mouse movement to the specified location on the Virtual Desktop which includes all active displays.
         /// </summary>
-        /// <param name="absoluteX">The destination's absolute X-coordinate on the virtual desktop where 0 is the left hand side of the virtual desktop and 65535 is the extreme right hand side of the virtual desktop.</param>
-        /// <param name="absoluteY">The destination's absolute Y-coordinate on the virtual desktop where 0 is the top of the virtual desktop and 65535 is the bottom of the virtual desktop.</param>
+        /// <param name="absoluteX">
+        ///     The destination's absolute X-coordinate on the virtual desktop where 0 is the left hand side of
+        ///     the virtual desktop and 65535 is the extreme right hand side of the virtual desktop.
+        /// </param>
+        /// <param name="absoluteY">
+        ///     The destination's absolute Y-coordinate on the virtual desktop where 0 is the top of the
+        ///     virtual desktop and 65535 is the bottom of the virtual desktop.
+        /// </param>
         public IMouseSimulator MoveMouseToPositionOnVirtualDesktop(double absoluteX, double absoluteY)
         {
-            var inputList = new InputBuilder().AddAbsoluteMouseMovementOnVirtualDesktop((int)Math.Truncate(absoluteX), (int)Math.Truncate(absoluteY)).ToArray();
+            var inputList =
+                new InputBuilder().AddAbsoluteMouseMovementOnVirtualDesktop((int) Math.Truncate(absoluteX),
+                    (int) Math.Truncate(absoluteY)).ToArray();
             SendSimulatedInput(inputList);
             return this;
         }
 
         /// <summary>
-        /// Simulates a mouse left button down gesture.
+        ///     Simulates a mouse left button down gesture.
         /// </summary>
         public IMouseSimulator LeftButtonDown()
         {
@@ -112,7 +129,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse left button up gesture.
+        ///     Simulates a mouse left button up gesture.
         /// </summary>
         public IMouseSimulator LeftButtonUp()
         {
@@ -122,7 +139,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse left-click gesture.
+        ///     Simulates a mouse left-click gesture.
         /// </summary>
         public IMouseSimulator LeftButtonClick()
         {
@@ -132,7 +149,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse left button double-click gesture.
+        ///     Simulates a mouse left button double-click gesture.
         /// </summary>
         public IMouseSimulator LeftButtonDoubleClick()
         {
@@ -142,7 +159,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse right button down gesture.
+        ///     Simulates a mouse right button down gesture.
         /// </summary>
         public IMouseSimulator RightButtonDown()
         {
@@ -152,7 +169,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse right button up gesture.
+        ///     Simulates a mouse right button up gesture.
         /// </summary>
         public IMouseSimulator RightButtonUp()
         {
@@ -162,7 +179,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse right button click gesture.
+        ///     Simulates a mouse right button click gesture.
         /// </summary>
         public IMouseSimulator RightButtonClick()
         {
@@ -172,7 +189,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse right button double-click gesture.
+        ///     Simulates a mouse right button double-click gesture.
         /// </summary>
         public IMouseSimulator RightButtonDoubleClick()
         {
@@ -182,7 +199,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse X button down gesture.
+        ///     Simulates a mouse X button down gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
         public IMouseSimulator XButtonDown(int buttonId)
@@ -193,7 +210,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse X button up gesture.
+        ///     Simulates a mouse X button up gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
         public IMouseSimulator XButtonUp(int buttonId)
@@ -204,7 +221,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse X button click gesture.
+        ///     Simulates a mouse X button click gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
         public IMouseSimulator XButtonClick(int buttonId)
@@ -215,7 +232,7 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates a mouse X button double-click gesture.
+        ///     Simulates a mouse X button double-click gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
         public IMouseSimulator XButtonDoubleClick(int buttonId)
@@ -226,29 +243,38 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Simulates mouse vertical wheel scroll gesture.
+        ///     Simulates mouse vertical wheel scroll gesture.
         /// </summary>
-        /// <param name="scrollAmountInClicks">The amount to scroll in clicks. A positive value indicates that the wheel was rotated forward, away from the user; a negative value indicates that the wheel was rotated backward, toward the user.</param>
+        /// <param name="scrollAmountInClicks">
+        ///     The amount to scroll in clicks. A positive value indicates that the wheel was
+        ///     rotated forward, away from the user; a negative value indicates that the wheel was rotated backward, toward the
+        ///     user.
+        /// </param>
         public IMouseSimulator VerticalScroll(int scrollAmountInClicks)
         {
-            var inputList = new InputBuilder().AddMouseVerticalWheelScroll(scrollAmountInClicks * MouseWheelClickSize).ToArray();
+            var inputList =
+                new InputBuilder().AddMouseVerticalWheelScroll(scrollAmountInClicks*MouseWheelClickSize).ToArray();
             SendSimulatedInput(inputList);
             return this;
         }
 
         /// <summary>
-        /// Simulates a mouse horizontal wheel scroll gesture. Supported by Windows Vista and later.
+        ///     Simulates a mouse horizontal wheel scroll gesture. Supported by Windows Vista and later.
         /// </summary>
-        /// <param name="scrollAmountInClicks">The amount to scroll in clicks. A positive value indicates that the wheel was rotated to the right; a negative value indicates that the wheel was rotated to the left.</param>
+        /// <param name="scrollAmountInClicks">
+        ///     The amount to scroll in clicks. A positive value indicates that the wheel was
+        ///     rotated to the right; a negative value indicates that the wheel was rotated to the left.
+        /// </param>
         public IMouseSimulator HorizontalScroll(int scrollAmountInClicks)
         {
-            var inputList = new InputBuilder().AddMouseHorizontalWheelScroll(scrollAmountInClicks * MouseWheelClickSize).ToArray();
+            var inputList =
+                new InputBuilder().AddMouseHorizontalWheelScroll(scrollAmountInClicks*MouseWheelClickSize).ToArray();
             SendSimulatedInput(inputList);
             return this;
         }
 
         /// <summary>
-        /// Sleeps the executing thread to create a pause between simulated inputs.
+        ///     Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
         /// <param name="millsecondsTimeout">The number of milliseconds to wait.</param>
         public IMouseSimulator Sleep(int millsecondsTimeout)
@@ -258,13 +284,22 @@ namespace WindowsInputControl
         }
 
         /// <summary>
-        /// Sleeps the executing thread to create a pause between simulated inputs.
+        ///     Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
         /// <param name="timeout">The time to wait.</param>
         public IMouseSimulator Sleep(TimeSpan timeout)
         {
             Thread.Sleep(timeout);
             return this;
+        }
+
+        /// <summary>
+        ///     Sends the list of <see cref="Input" /> messages using the <see cref="IInputMessageDispatcher" /> instance.
+        /// </summary>
+        /// <param name="inputList">The <see cref="System.Array" /> of <see cref="Input" /> messages to send.</param>
+        private void SendSimulatedInput(Input[] inputList)
+        {
+            _messageDispatcher.DispatchInput(inputList);
         }
     }
 }

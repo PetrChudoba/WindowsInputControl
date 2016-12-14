@@ -1,23 +1,21 @@
 ﻿using WindowsInputControl.Hooks;
+using WindowsInputControl.KeyboardLayouts;
 
 namespace WindowsInputControl.Helpers
 {
     /// <summary>
-    /// Class ServiceLocator.
+    ///     Class ServiceLocator.
     /// </summary>
     internal static class ServiceLocator
     {
         private static readonly IKeyboardLayoutNames _defaultLayoutNames = new KeyboardLayoutNames();
 
         /// <summary>
-        /// The keyboard layout names
+        ///     The keyboard layout names
         /// </summary>
         public static IKeyboardLayoutNames KeyboardLayoutNames
         {
-            get
-            {
-                return _defaultLayoutNames;
-            }
+            get { return _defaultLayoutNames; }
         }
     }
 }

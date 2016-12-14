@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using WindowsInputControl;
 using WindowsInputControl.Hooks;
-using WindowsInputControl.Native;
 using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputLogger
@@ -35,7 +34,7 @@ namespace WindowsInputLogger
         public void Send()
         {
 
-            kbdSimulator.Send(KeyAction.Press, new ScanCode(ScanCode), (VirtualKeyCode) VirtualKey);
+            kbdSimulator.Send(KeyAction.Press, new ScanCode(ScanCode), (VirtualKey) VirtualKey);
         }
 
 

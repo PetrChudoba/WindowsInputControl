@@ -24,9 +24,7 @@ namespace WindowsInputControl.WindowsInputs.Keyboard
             Code = code;
 
             if (isExtended)
-            {
                 Code |= ExtendedFlag;
-            }
         }
 
 
@@ -34,6 +32,5 @@ namespace WindowsInputControl.WindowsInputs.Keyboard
         {
             get { return (Code & 0xFF00) == ExtendedFlag; }
         }
-
     }
 }
