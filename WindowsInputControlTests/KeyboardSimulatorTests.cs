@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsInputControl.Hooks;
+using WindowsInputControl.Keyboards;
+using WindowsInputControl.WindowsHooks.Keyboard;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl.Tests
 {
@@ -15,11 +18,11 @@ namespace WindowsInputControl.Tests
         [TestMethod()]
         public void SendScanCodeTest()
         {
-            IKeyboardSimulator sim = new KeyboardSimulator(new InputSimulator());
+            IKeyboardInputControl sim = new  KeyboardInputControl();
 
-            KeyboardLayoutControl cont = new KeyboardLayoutControl();
+            IWindowsKeyboardsControl cont = new WindowsKeyboardsControl();
 
-            IKeyboardLayout layout = cont.GetActiveLayout();
+            IKeyboard layout = cont.GetActiveLayout();
 
             KeyboardLogger logger = new KeyboardLogger();
 
@@ -35,12 +38,12 @@ namespace WindowsInputControl.Tests
 
             //
 
-            sim.SendScanCode(45);
+            sim.KeyAction(new ScanCode(45),KeyAction.Down);
 
             firstKey = logger.LastKey;
 
 
-            sim.SendScanCode(45, layout);
+            sim.KeyAction(new ScanCode(45), KeyAction.Down, layout);
 
 
             secondKey = logger.LastKey;
