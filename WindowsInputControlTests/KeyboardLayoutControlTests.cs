@@ -20,7 +20,7 @@ namespace WindowsInputControl.Hooks.Tests
             //arrange
             var inputLanguages = InputLanguage.InstalledInputLanguages;
 
-            KeyboardLayoutControl klc = new KeyboardLayoutControl();
+            WindowsKeyboardLayoutControl klc = new WindowsKeyboardLayoutControl();
 
 
 

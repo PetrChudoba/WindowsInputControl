@@ -8,12 +8,14 @@ namespace WindowsInputControl.Helpers
     /// </summary>
     internal static class ServiceLocator
     {
-        private static readonly IKeyboardLayoutNames _defaultLayoutNames = new KeyboardLayoutNames();
+
+        private static readonly IWindowsKeyboardLayoutNames _defaultLayoutNames = new WindowsKeyboardLayoutNames();
 
         /// <summary>
-        ///     The keyboard layout names
+        /// The keyboard layout names
         /// </summary>
-        public static IKeyboardLayoutNames KeyboardLayoutNames
+        /// <value>The windows keyboard layout names.</value>
+        public static IWindowsKeyboardLayoutNames WindowsKeyboardLayoutNames
         {
             get { return _defaultLayoutNames; }
         }

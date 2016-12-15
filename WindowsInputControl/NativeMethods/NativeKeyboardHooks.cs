@@ -8,8 +8,7 @@ namespace WindowsInputControl.NativeMethods
     internal static class NativeKeyboardHooks
     {
         [DllImport("user32.dll")]
-        public static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookHandlerDelegate lpfn, IntPtr hMod,
-            uint dwThreadId);
+        public static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookHandlerDelegate lpfn, IntPtr hMod, uint dwThreadId);
 
 
         [DllImport("user32.dll")]
