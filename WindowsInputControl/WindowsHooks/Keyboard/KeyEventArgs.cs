@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using WindowsInputControl.Helpers;
-using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
-namespace WindowsInputControl.Hooks
+namespace WindowsInputControl.WindowsHooks.Keyboard
 {
-   
-
-
     /// <summary>
-    /// Struct KeyEventArgs <see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx"/>
+    ///     Struct KeyEventArgs <see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms644967(v=vs.85).aspx" />
     /// </summary>
     [StructLayout(LayoutKind.Sequential)]
     public class KeyEventArgs
@@ -22,47 +14,52 @@ namespace WindowsInputControl.Hooks
         #region Fields
 
         /// <summary>
-        /// The virtual key code
-        /// DWORD vkCode;
+        ///     The virtual key code
+        ///     DWORD vkCode;
         /// </summary>
-        public uint VirtualKey;
+        public uint virtualKey;
 
         /// <summary>
-        /// The scan code
-        /// DWORD scanCode;
+        ///     The scan code
+        ///     DWORD scanCode;
         /// </summary>
         public uint ScanCode;
 
 
         /// <summary>
-        /// The flags
-        /// DWORD flags;
+        ///     The flags
+        ///     DWORD flags;
         /// </summary>
         public uint Flags;
 
 
         /// <summary>
-        /// The time
-        /// DWORD time;
+        ///     The time
+        ///     DWORD time;
         /// </summary>
         public uint Time;
 
 
         /// <summary>
-        /// The dw extra information
-        /// ULONG_PTR dwExtraInfo;
+        ///     The dw extra information
+        ///     ULONG_PTR dwExtraInfo;
         /// </summary>
         public IntPtr DwExtraInfo;
-
 
         #endregion
 
 
         #region Properties
 
+        public VirtualKey VirtualKey
+        {
+            get { return (VirtualKey) virtualKey; }
+        }
+
+
         public bool IsExtended
         {
-            get { return IsBitSet( Flags, 0); }   
+            get { return IsBitSet(Flags, 0); }
         }
 
         public bool IsAltPressed
@@ -73,7 +70,7 @@ namespace WindowsInputControl.Hooks
 
         public bool IsUpEvent
         {
-            get {  return IsBitSet(Flags,7); }
+            get { return IsBitSet(Flags, 7); }
         }
 
         public bool IsDownEvent
@@ -81,23 +78,28 @@ namespace WindowsInputControl.Hooks
             get { return !IsUpEvent; }
         }
 
-
-
-
-        bool IsBitSet(uint b, int pos)
-        {  
-
-            return (b & (1 << pos)) != 0;
+        public KeyAction KeyAction
+        {
+            get { return IsUpEvent ? KeyAction.Up : KeyAction.Down; }
         }
 
+
+        private bool IsBitSet(uint b, int pos)
+        {
+            return (b & (1 << pos)) != 0;
+        }
 
         #endregion
 
 
+        #region Methods
 
         public override string ToString()
         {
             return $"vk {VirtualKey}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
         }
+
+        #endregion
+
     }
 }

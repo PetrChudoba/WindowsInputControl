@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace WindowsInputControl.Helpers
 {
     /// <summary>
-    /// Class UintBitOperations is extensions class for bit operation on uint values.
+    ///     Class UintBitOperations is extensions class for bit operation on uint values.
     /// </summary>
     public static class UintBitOperations
     {
         /// <summary>
-        /// Determines whether a bit is set on the specified position.
+        ///     Determines whether a bit is set on the specified position.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <param name="position">The position.</param>
@@ -24,7 +24,7 @@ namespace WindowsInputControl.Helpers
         }
 
         /// <summary>
-        /// Gets the binary representation.
+        ///     Gets the binary representation.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <returns>System.String.</returns>
@@ -34,6 +34,12 @@ namespace WindowsInputControl.Helpers
         }
 
 
+        /// <summary>
+        ///     Gets the binary representation of the specified length.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <param name="requiredLength">Length of the required.</param>
+        /// <returns>System.String.</returns>
         public static string GetBinaryRepresentation(this uint number, int requiredLength)
         {
             string binaryStr = Convert.ToString(number, 2);
@@ -49,7 +55,7 @@ namespace WindowsInputControl.Helpers
 
 
         /// <summary>
-        /// Sets the bit on the specified position to 1.
+        ///     Sets the bit on the specified position to 1.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <param name="pos">The position.</param>
@@ -62,7 +68,7 @@ namespace WindowsInputControl.Helpers
         }
 
         /// <summary>
-        /// Sets the bit on the specified position to 0.
+        ///     Sets the bit on the specified position to 0.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <param name="pos">The position.</param>
@@ -76,7 +82,7 @@ namespace WindowsInputControl.Helpers
 
 
         /// <summary>
-        /// Changes the bit on the specified position.
+        ///     Changes the bit on the specified position.
         /// </summary>
         /// <param name="number">The number.</param>
         /// <param name="requiredValue">if set to <c>true</c> sets the bit to 1 otherwise sets the bit to 0.</param>

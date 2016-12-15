@@ -2,26 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using WindowsInputControl.Native;
+using System.Threading;
+using WindowsInputControl.NativeMethods;
+using WindowsInputControl.WindowsHooks.Keyboard;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputControl.Hooks
 {
     public class KeyboardLogger
     {
-
-        private KeyboardHookHandlerDelegate proc;
-        private IntPtr hookID = IntPtr.Zero;
         private const int WH_KEYBOARD_LL = 13;
 
 
         private IInputMessageDispatcher _dispatcher = new WindowsInputMessageDispatcher();
 
-       private IList<KeyEventArgs> _events = new List<KeyEventArgs>();
+        private IList<KeyEventArgs> _events = new List<KeyEventArgs>();
+
+        private bool _isReplaying = false;
         private KeyEventArgs _lastEvent;
+        private IntPtr hookID = IntPtr.Zero;
 
-        public IEnumerable<KeyEventArgs> KeyEvents { get { return _events; } }
-
-        public KeyEventArgs LastKey { get { return _lastEvent; } }
+        private KeyboardHookHandlerDelegate proc;
 
 
         public KeyboardLogger()
@@ -29,118 +30,87 @@ namespace WindowsInputControl.Hooks
             proc = new KeyboardHookHandlerDelegate(HookCallback);
         }
 
+        public IEnumerable<KeyEventArgs> KeyEvents
+        {
+            get { return _events; }
+        }
+
+        public KeyEventArgs LastKey
+        {
+            get { return _lastEvent; }
+        }
+
         public void SetHook()
         {
-            hookID = NativeWindowsHookMethods.SetWindowsHookEx(WH_KEYBOARD_LL, proc, IntPtr.Zero, 0);
+            hookID = KeyboardHooks.SetWindowsHookEx(WH_KEYBOARD_LL, proc, IntPtr.Zero, 0);
         }
 
         public bool RemoveHook()
         {
-            return NativeWindowsHookMethods.UnhookWindowsHookEx(hookID);
+            return KeyboardHooks.UnhookWindowsHookEx(hookID);
         }
 
 
         private IntPtr HookCallback(int nCode, KeyEventType wParam, KeyEventArgs lParam)
         {
+            Debug.WriteLine(wParam.ToString() + " " + lParam.ToString());
 
-            Debug.WriteLine(wParam.ToString() +  " "  + lParam.ToString());
-            
 
             if (wParam == KeyEventType.WM_SYSKEYDOWN)
-            {
                 if (lParam.IsAltPressed && lParam.IsDownEvent)
-                {
                     Debug.WriteLine("GOOD");
-                }
-            }
 
             if (wParam == KeyEventType.WM_SYSKEYUP)
-            {
                 if (lParam.IsAltPressed && lParam.IsUpEvent)
-                {
                     Debug.WriteLine("GOOD");
-                }
-            }
 
 
             if (wParam == KeyEventType.WM_KEYUP)
             {
                 Debug.WriteLine(lParam.Flags);
                 if (!lParam.IsAltPressed && lParam.IsUpEvent)
-                {
                     Debug.WriteLine("GOOD");
-                }
             }
-            
+
 
             if (wParam == KeyEventType.WM_KEYDOWN)
-            {
-
                 if (!lParam.IsAltPressed && lParam.IsDownEvent)
-                {
                     Debug.WriteLine("GOOD");
-                }
+
+
+            if (!_isReplaying)
+            {
+                _events.Add(lParam);
+                _lastEvent = lParam;
             }
 
-
-            _events.Add(lParam);
-            _lastEvent = lParam;
-
-
-            // Debug.WriteLine("computed vk  {0}, Vk {1}, Sc {2} and flags {3} and {4}", getVk, lParam.vkCode, lParam.scanCode, lParam.flags, lParam.dwExtraInfo);
-
-            return  IntPtr.Zero;
-            
-            return NativeWindowsHookMethods.CallNextHookEx(hookID, nCode, wParam, lParam);
-            
-
+            return KeyboardHooks.CallNextHookEx(hookID, nCode, wParam, lParam);
         }
 
         public void Replay()
         {
+            _isReplaying = true;
 
-            /*
-            
-            
-            List<KeyboardInput> inas = new List<KeyboardInput>();
+            KeyboardInputControl simik = new KeyboardInputControl();
 
             foreach (var evn in _events)
             {
-                
-                KeyboardInput ina  = new KeyboardInput();
+                ScanCode sc = new ScanCode((ushort) evn.ScanCode);
 
-                ina.KeyCode = (ushort) evn.VirtualKey;
-                ina.ScanCode =(ushort) evn.ScanCode;
+               
 
-                if (evn.IsExtended)
-                {
-                    ina.SetExtended();
-                }
 
-                if (evn.IsUpEvent)
-                {
-                    ina.SetKeyUp();
-                }
-
-                inas.Add(ina);
-;
-
+                simik.KeyAction(evn.VirtualKey, sc, evn.KeyAction);
+                Thread.Sleep(500);
             }
 
 
-            _dispatcher.DispatchKeyboardInputs(inas);
-
-            */
-    
-
-            
-            IInputSimulator sim = new InputSimulator();
-            sim.Keyboard.KeyPress(VirtualKeyCode.VK_E);
+            _isReplaying = false;
         }
 
         public void Dispose()
         {
-            NativeWindowsHookMethods.UnhookWindowsHookEx(hookID);
+            KeyboardHooks.UnhookWindowsHookEx(hookID);
         }
     }
 }

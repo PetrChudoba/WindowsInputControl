@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using WindowsInputControl.Native;
+using WindowsInputControl.Hooks;
+using WindowsInputControl.WindowsHooks.Keyboard;
 
-namespace WindowsInputControl.Hooks
+namespace WindowsInputControl.NativeMethods
 {
-    internal static class NativeWindowsHookMethods
+    internal static class KeyboardHooks
     {
-
         [DllImport("user32.dll")]
         public static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookHandlerDelegate lpfn, IntPtr hMod, uint dwThreadId);
 
@@ -20,7 +20,5 @@ namespace WindowsInputControl.Hooks
 
         [DllImport("user32.dll")]
         public static extern IntPtr GetMessageExtraInfo();
-
-
     }
 }

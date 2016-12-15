@@ -1,22 +1,22 @@
 ﻿namespace WindowsInputControl
 {
     /// <summary>
-    /// The mouse button
+    ///     The mouse button
     /// </summary>
     public enum MouseButton
     {
         /// <summary>
-        /// Left mouse button
+        ///     Left mouse button
         /// </summary>
         LeftButton,
 
         /// <summary>
-        /// Middle mouse button
+        ///     Middle mouse button
         /// </summary>
         MiddleButton,
 
         /// <summary>
-        /// Right mouse button
+        ///     Right mouse button
         /// </summary>
         RightButton,
     }

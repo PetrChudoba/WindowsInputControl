@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using WindowsInputControl;
 using WindowsInputControl.Hooks;
-using WindowsInputControl.Native;
+using WindowsInputControl.WindowsInputs.Keyboard;
 
 namespace WindowsInputLogger
 {
     class MainWindowsVm
     {
         private KeyboardLogger logger;
-        private IKeyboardSimulator kbdSimulator;
+        private KeyboardInputControl _kbdInputControl;
 
         private List<string> _events;
 
@@ -21,7 +21,7 @@ namespace WindowsInputLogger
                  logger = new KeyboardLogger();
             logger.SetHook();
 
-            kbdSimulator = new KeyboardSimulator(new InputSimulator());
+            _kbdInputControl = new KeyboardInputControl();
         }
 
         public ushort ScanCode { get; set;  }
@@ -33,7 +33,8 @@ namespace WindowsInputLogger
 
         public void Send()
         {
-            kbdSimulator.Send(ScanCode, VirtualKey, (KeyboardFlag) Flags);
+
+            _kbdInputControl.KeyPress((VirtualKey) VirtualKey, new ScanCode(ScanCode));
         }
 
 
@@ -54,5 +55,9 @@ namespace WindowsInputLogger
             get { return _events; }
         }
 
+        public void Replay()
+        {
+            logger.Replay();
+        }
     }
 }
