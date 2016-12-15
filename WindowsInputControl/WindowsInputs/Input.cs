@@ -17,7 +17,7 @@ namespace WindowsInputControl.WindowsInputs
     ///     function.
     ///     Windows 2000/XP: INPUT_KEYBOARD supports nonkeyboard input methods, such as handwriting recognition or voice
     ///     recognition, as if it were text input by using the KEYEVENTF_UNICODE flag. For more information, see the remarks
-    ///     section of KeyboardInput.
+    ///     section of KeyboardInputControl.
     /// </remarks>
     [StructLayout(LayoutKind.Sequential)]
     internal struct Input

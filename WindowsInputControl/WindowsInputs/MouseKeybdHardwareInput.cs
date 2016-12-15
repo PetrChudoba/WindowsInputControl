@@ -14,9 +14,9 @@ namespace WindowsInputControl.WindowsInputs
     internal struct MouseKeybdHardwareInput
     {
         /// <summary>
-        ///     The <see cref="MouseInput" /> definition.
+        ///     The <see cref="WindowsInputs.Mouse.MouseInput" /> definition.
         /// </summary>
-        [FieldOffset(0)] public MouseInput Mouse;
+        [FieldOffset(0)] public Mouse.MouseInput Mouse;
 
         /// <summary>
         ///     The <see cref="WindowsInputs.Keyboard.KeyboardInput" /> definition.

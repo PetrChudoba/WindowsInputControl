@@ -5,7 +5,7 @@ namespace WindowsInputControl.WindowsInputs.Mouse
 {
 
     /// <summary>
-    ///     The MouseInput structure contains information about a simulated mouse event. (see:
+    ///     The MouseInputControl structure contains information about a simulated mouse event. (see:
     ///     http://msdn.microsoft.com/en-us/library/ms646273(VS.85).aspx)
     ///     Declared in Winuser.h, include Windows.h
     /// </summary>

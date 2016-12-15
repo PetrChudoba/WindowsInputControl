@@ -91,7 +91,7 @@ namespace WindowsInputControl.Hooks
         {
             _isReplaying = true;
 
-            KeyboardInput simik = new KeyboardInput();
+            KeyboardInputControl simik = new KeyboardInputControl();
 
             foreach (var evn in _events)
             {

@@ -12,7 +12,7 @@ namespace WindowsInputLogger
     class MainWindowsVm
     {
         private KeyboardLogger logger;
-        private KeyboardInput _kbdInput;
+        private KeyboardInputControl _kbdInputControl;
 
         private List<string> _events;
 
@@ -21,7 +21,7 @@ namespace WindowsInputLogger
                  logger = new KeyboardLogger();
             logger.SetHook();
 
-            _kbdInput = new KeyboardInput();
+            _kbdInputControl = new KeyboardInputControl();
         }
 
         public ushort ScanCode { get; set;  }
@@ -34,7 +34,7 @@ namespace WindowsInputLogger
         public void Send()
         {
 
-            _kbdInput.KeyPress((VirtualKey) VirtualKey, new ScanCode(ScanCode));
+            _kbdInputControl.KeyPress((VirtualKey) VirtualKey, new ScanCode(ScanCode));
         }
 
 

@@ -5,10 +5,10 @@ using WindowsInputControl.WindowsInputs;
 namespace WindowsInputControl
 {
     /// <summary>
-    ///     Implements the <see cref="IMouseSimulator" /> interface by calling the an <see cref="IInputMessageDispatcher" /> to
+    ///     Implements the <see cref="IMouseInputControl" /> interface by calling the an <see cref="IInputMessageDispatcher" /> to
     ///     simulate Mouse gestures.
     /// </summary>
-    public class MouseSimulator : IMouseSimulator
+    public class MouseInputControl : IMouseInputControl
     {
         private const int MouseWheelClickSize = 120;
 
@@ -19,17 +19,17 @@ namespace WindowsInputControl
         private readonly IInputMessageDispatcher _messageDispatcher;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="MouseSimulator" /> class using an instance of a
+        ///     Initializes a new instance of the <see cref="MouseInputControl" /> class using an instance of a
         ///     <see cref="WindowsInputMessageDispatcher" /> for dispatching <see cref="Input" /> messages.
         /// </summary>
-        public MouseSimulator()
+        public MouseInputControl()
         {
             
             _messageDispatcher = new WindowsInputMessageDispatcher();
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="MouseSimulator" /> class using the specified
+        ///     Initializes a new instance of the <see cref="MouseInputControl" /> class using the specified
         ///     <see cref="IInputMessageDispatcher" /> for dispatching <see cref="Input" /> messages.
         /// </summary>
         /// <param name="messageDispatcher">
@@ -37,7 +37,7 @@ namespace WindowsInputControl
         ///     messages.
         /// </param>
         /// <exception cref="InvalidOperationException">If null is passed as the <paramref name="messageDispatcher" />.</exception>
-        internal MouseSimulator(IInputMessageDispatcher messageDispatcher)
+        internal MouseInputControl(IInputMessageDispatcher messageDispatcher)
         {
 
 
@@ -45,7 +45,7 @@ namespace WindowsInputControl
                 throw new InvalidOperationException(
                     string.Format(
                         "The {0} cannot operate with a null {1}. Please provide a valid {1} instance to use for dispatching {2} messages.",
-                        typeof(MouseSimulator).Name, typeof(IInputMessageDispatcher).Name, typeof(Input).Name));
+                        typeof(MouseInputControl).Name, typeof(IInputMessageDispatcher).Name, typeof(Input).Name));
 
             _messageDispatcher = messageDispatcher;
         }
@@ -57,7 +57,7 @@ namespace WindowsInputControl
         /// </summary>
         /// <param name="pixelDeltaX">The distance in pixels to move the mouse horizontally.</param>
         /// <param name="pixelDeltaY">The distance in pixels to move the mouse vertically.</param>
-        public IMouseSimulator MoveMouseBy(int pixelDeltaX, int pixelDeltaY)
+        public IMouseInputControl MoveMouseBy(int pixelDeltaX, int pixelDeltaY)
         {
             var inputList = new InputBuilder().AddRelativeMouseMovement(pixelDeltaX, pixelDeltaY).ToArray();
             SendSimulatedInput(inputList);
@@ -75,7 +75,7 @@ namespace WindowsInputControl
         ///     The destination's absolute Y-coordinate on the primary display device where 0 is the top of the
         ///     display device and 65535 is the bottom of the display device.
         /// </param>
-        public IMouseSimulator MoveMouseTo(double absoluteX, double absoluteY)
+        public IMouseInputControl MoveMouseTo(double absoluteX, double absoluteY)
         {
             var inputList =
                 new InputBuilder().AddAbsoluteMouseMovement((int) Math.Truncate(absoluteX),
@@ -95,7 +95,7 @@ namespace WindowsInputControl
         ///     The destination's absolute Y-coordinate on the virtual desktop where 0 is the top of the
         ///     virtual desktop and 65535 is the bottom of the virtual desktop.
         /// </param>
-        public IMouseSimulator MoveMouseToPositionOnVirtualDesktop(double absoluteX, double absoluteY)
+        public IMouseInputControl MoveMouseToPositionOnVirtualDesktop(double absoluteX, double absoluteY)
         {
             var inputList =
                 new InputBuilder().AddAbsoluteMouseMovementOnVirtualDesktop((int) Math.Truncate(absoluteX),
@@ -107,7 +107,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse left button down gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonDown()
+        public IMouseInputControl LeftButtonDown()
         {
             var inputList = new InputBuilder().AddMouseButtonDown(MouseButton.LeftButton).ToArray();
             SendSimulatedInput(inputList);
@@ -117,7 +117,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse left button up gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonUp()
+        public IMouseInputControl LeftButtonUp()
         {
             var inputList = new InputBuilder().AddMouseButtonUp(MouseButton.LeftButton).ToArray();
             SendSimulatedInput(inputList);
@@ -127,7 +127,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse left-click gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonClick()
+        public IMouseInputControl LeftButtonClick()
         {
             var inputList = new InputBuilder().AddMouseButtonClick(MouseButton.LeftButton).ToArray();
             SendSimulatedInput(inputList);
@@ -137,7 +137,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse left button double-click gesture.
         /// </summary>
-        public IMouseSimulator LeftButtonDoubleClick()
+        public IMouseInputControl LeftButtonDoubleClick()
         {
             var inputList = new InputBuilder().AddMouseButtonDoubleClick(MouseButton.LeftButton).ToArray();
             SendSimulatedInput(inputList);
@@ -147,7 +147,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse right button down gesture.
         /// </summary>
-        public IMouseSimulator RightButtonDown()
+        public IMouseInputControl RightButtonDown()
         {
             var inputList = new InputBuilder().AddMouseButtonDown(MouseButton.RightButton).ToArray();
             SendSimulatedInput(inputList);
@@ -157,7 +157,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse right button up gesture.
         /// </summary>
-        public IMouseSimulator RightButtonUp()
+        public IMouseInputControl RightButtonUp()
         {
             var inputList = new InputBuilder().AddMouseButtonUp(MouseButton.RightButton).ToArray();
             SendSimulatedInput(inputList);
@@ -167,7 +167,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse right button click gesture.
         /// </summary>
-        public IMouseSimulator RightButtonClick()
+        public IMouseInputControl RightButtonClick()
         {
             var inputList = new InputBuilder().AddMouseButtonClick(MouseButton.RightButton).ToArray();
             SendSimulatedInput(inputList);
@@ -177,7 +177,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Simulates a mouse right button double-click gesture.
         /// </summary>
-        public IMouseSimulator RightButtonDoubleClick()
+        public IMouseInputControl RightButtonDoubleClick()
         {
             var inputList = new InputBuilder().AddMouseButtonDoubleClick(MouseButton.RightButton).ToArray();
             SendSimulatedInput(inputList);
@@ -188,7 +188,7 @@ namespace WindowsInputControl
         ///     Simulates a mouse X button down gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
-        public IMouseSimulator XButtonDown(int buttonId)
+        public IMouseInputControl XButtonDown(int buttonId)
         {
             var inputList = new InputBuilder().AddMouseXButtonDown(buttonId).ToArray();
             SendSimulatedInput(inputList);
@@ -199,7 +199,7 @@ namespace WindowsInputControl
         ///     Simulates a mouse X button up gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
-        public IMouseSimulator XButtonUp(int buttonId)
+        public IMouseInputControl XButtonUp(int buttonId)
         {
             var inputList = new InputBuilder().AddMouseXButtonUp(buttonId).ToArray();
             SendSimulatedInput(inputList);
@@ -210,7 +210,7 @@ namespace WindowsInputControl
         ///     Simulates a mouse X button click gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
-        public IMouseSimulator XButtonClick(int buttonId)
+        public IMouseInputControl XButtonClick(int buttonId)
         {
             var inputList = new InputBuilder().AddMouseXButtonClick(buttonId).ToArray();
             SendSimulatedInput(inputList);
@@ -221,7 +221,7 @@ namespace WindowsInputControl
         ///     Simulates a mouse X button double-click gesture.
         /// </summary>
         /// <param name="buttonId">The button id.</param>
-        public IMouseSimulator XButtonDoubleClick(int buttonId)
+        public IMouseInputControl XButtonDoubleClick(int buttonId)
         {
             var inputList = new InputBuilder().AddMouseXButtonDoubleClick(buttonId).ToArray();
             SendSimulatedInput(inputList);
@@ -236,7 +236,7 @@ namespace WindowsInputControl
         ///     rotated forward, away from the user; a negative value indicates that the wheel was rotated backward, toward the
         ///     user.
         /// </param>
-        public IMouseSimulator VerticalScroll(int scrollAmountInClicks)
+        public IMouseInputControl VerticalScroll(int scrollAmountInClicks)
         {
             var inputList =
                 new InputBuilder().AddMouseVerticalWheelScroll(scrollAmountInClicks*MouseWheelClickSize).ToArray();
@@ -251,7 +251,7 @@ namespace WindowsInputControl
         ///     The amount to scroll in clicks. A positive value indicates that the wheel was
         ///     rotated to the right; a negative value indicates that the wheel was rotated to the left.
         /// </param>
-        public IMouseSimulator HorizontalScroll(int scrollAmountInClicks)
+        public IMouseInputControl HorizontalScroll(int scrollAmountInClicks)
         {
             var inputList =
                 new InputBuilder().AddMouseHorizontalWheelScroll(scrollAmountInClicks*MouseWheelClickSize).ToArray();
@@ -263,7 +263,7 @@ namespace WindowsInputControl
         ///     Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
         /// <param name="millsecondsTimeout">The number of milliseconds to wait.</param>
-        public IMouseSimulator Sleep(int millsecondsTimeout)
+        public IMouseInputControl Sleep(int millsecondsTimeout)
         {
             Thread.Sleep(millsecondsTimeout);
             return this;
@@ -273,7 +273,7 @@ namespace WindowsInputControl
         ///     Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
         /// <param name="timeout">The time to wait.</param>
-        public IMouseSimulator Sleep(TimeSpan timeout)
+        public IMouseInputControl Sleep(TimeSpan timeout)
         {
             Thread.Sleep(timeout);
             return this;
