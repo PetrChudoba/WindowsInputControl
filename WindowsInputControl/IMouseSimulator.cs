@@ -7,11 +7,7 @@ namespace WindowsInputControl
     /// </summary>
     public interface IMouseSimulator
     {
-        /// <summary>
-        ///     Gets the <see cref="IKeyboardSimulator" /> instance for simulating Keyboard input.
-        /// </summary>
-        /// <value>The <see cref="IKeyboardSimulator" /> instance.</value>
-        IKeyboardSimulator Keyboard { get; }
+
 
         /// <summary>
         ///     Simulates mouse movement by the specified distance measured as a delta from the current mouse location in pixels.
@@ -132,8 +128,8 @@ namespace WindowsInputControl
         /// <summary>
         ///     Sleeps the executing thread to create a pause between simulated inputs.
         /// </summary>
-        /// <param name="millsecondsTimeout">The number of milliseconds to wait.</param>
-        IMouseSimulator Sleep(int millsecondsTimeout);
+        /// <param name="millisecondsTimeout">The number of milliseconds to wait.</param>
+        IMouseSimulator Sleep(int millisecondsTimeout);
 
         /// <summary>
         ///     Sleeps the executing thread to create a pause between simulated inputs.

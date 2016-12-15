@@ -1,5 +1,5 @@
 ﻿using WindowsInputControl.Hooks;
-using WindowsInputControl.KeyboardLayouts;
+using WindowsInputControl.Keyboards.Names;
 
 namespace WindowsInputControl.Helpers
 {
@@ -9,15 +9,15 @@ namespace WindowsInputControl.Helpers
     internal static class ServiceLocator
     {
 
-        private static readonly IWindowsKeyboardLayoutNames _defaultLayoutNames = new WindowsKeyboardLayoutNames();
+        private static readonly IWindowsKeyboardNames DefaultNames = new WindowsKeyboardNames();
 
         /// <summary>
         /// The keyboard layout names
         /// </summary>
         /// <value>The windows keyboard layout names.</value>
-        public static IWindowsKeyboardLayoutNames WindowsKeyboardLayoutNames
+        public static IWindowsKeyboardNames WindowsKeyboardNames
         {
-            get { return _defaultLayoutNames; }
+            get { return DefaultNames; }
         }
     }
 }

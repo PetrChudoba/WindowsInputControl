@@ -87,28 +87,27 @@
   <ItemGroup>
     <Compile Include="Helpers\ServiceLocator.cs" />
     <Compile Include="Helpers\UintBitOperations.cs" />
-    <Compile Include="KeyboardLayouts\IKeyboardLayout.cs" />
+    <Compile Include="Keyboards\IKeyboard.cs" />
+    <Compile Include="Keyboards\IWindowsKeyboardsControl.cs" />
     <Compile Include="NativeMethods\Inputs.cs" />
     <Compile Include="NativeMethods\KeyboardsControl.cs" />
     <Compile Include="NativeMethods\KeyStateInfo.cs" />
     <Compile Include="WindowsHooks\Keyboard\KeyboardHookHandlerDelegate.cs" />
-    <Compile Include="KeyboardLayouts\IWindowsKeyboardLayoutNames.cs" />
+    <Compile Include="Keyboards\Names\IWindowsKeyboardNames.cs" />
     <Compile Include="WindowsHooks\Keyboard\KeyEventArgs.cs" />
     <Compile Include="NativeMethods\KeyboardHooks.cs" />
-    <Compile Include="KeyboardLayouts\WindowsKeyboardLayoutControl.cs" />
+    <Compile Include="Keyboards\WindowsKeyboardsControl.cs" />
     <Compile Include="KeyboardLogger.cs" />
-    <Compile Include="KeyboardLayouts\WindowsKeyboardLayoutNames.cs" />
+    <Compile Include="Keyboards\Names\WindowsKeyboardNames.cs" />
     <Compile Include="WindowsHooks\Keyboard\KeyEventType.cs" />
     <Compile Include="NativeMethods\KeyboardMapping.cs" />
     <Compile Include="NativeMethods\WindowInfo.cs" />
     <Compile Include="IInputDeviceStateAdaptor.cs" />
     <Compile Include="IInputMessageDispatcher.cs" />
-    <Compile Include="IInputSimulator.cs" />
-    <Compile Include="IKeyboardSimulator.cs" />
+    <Compile Include="IKeyboardInput.cs" />
     <Compile Include="IMouseSimulator.cs" />
     <Compile Include="InputBuilder.cs" />
-    <Compile Include="InputSimulator.cs" />
-    <Compile Include="KeyboardSimulator.cs" />
+    <Compile Include="KeyboardInput.cs" />
     <Compile Include="MouseButton.cs" />
     <Compile Include="MouseSimulator.cs" />
     <Compile Include="WindowsInputs\Hardware\HardwareInput.cs" />
@@ -125,8 +124,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsInputDeviceStateAdaptor.cs" />
     <Compile Include="WindowsInputMessageDispatcher.cs" />
-    <Compile Include="KeyboardLayouts\WindowsKeyboardLayout.cs" />
+    <Compile Include="Keyboards\WindowsKeyboard.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

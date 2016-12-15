@@ -73,7 +73,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Determines if the <see cref="VirtualKey" /> is an ExtendedKey
         /// </summary>
-        /// <param name="virtualKeyhe key code.
+        /// <param name="virtualKey key code.
         /// </param>
         /// <returns>true if the key code is an extended key; otherwise, false.</returns>
         /// <remarks>
@@ -111,7 +111,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Adds a key down to the list of <see cref="Input" /> messages.
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// .
         /// </param>
@@ -125,9 +125,9 @@ namespace WindowsInputControl
                     Data = new MouseKeybdHardwareInput()
                     {
                         Keyboard =
-                            new KeyboardInput
+                            new WindowsInputs.Keyboard.KeyboardInput
                             {
-                                virtualKey = virtualKey,
+                                VirtualKey = virtualKey,
                                 ScanCode = new ScanCode(0),
                                 Flags = IsExtendedKey(virtualKey) ? KeyboardFlag.ExtendedKey : (ushort) 0,
                                 Time = 0,
@@ -143,7 +143,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Adds a key up to the list of <see cref="Input" /> messages.
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// .
         /// </param>
@@ -157,9 +157,9 @@ namespace WindowsInputControl
                     Data = new MouseKeybdHardwareInput()
                     {
                         Keyboard =
-                            new KeyboardInput
+                            new WindowsInputs.Keyboard.KeyboardInput
                             {
-                                virtualKey = virtualKey,
+                                VirtualKey = virtualKey,
                                 ScanCode = new ScanCode(0),
                                 Flags = (IsExtendedKey(virtualKey)
                                     ? KeyboardFlag.KeyUp | KeyboardFlag.ExtendedKey
@@ -187,9 +187,9 @@ namespace WindowsInputControl
                     Data = new MouseKeybdHardwareInput()
                     {
                         Keyboard =
-                            new KeyboardInput
+                            new WindowsInputs.Keyboard.KeyboardInput
                             {
-                                virtualKey = 0,
+                                VirtualKey = 0,
                                 ScanCode = new ScanCode(scanCode),
                                 Flags = KeyboardFlag.ScanCode,
                                 Time = 0,
@@ -216,9 +216,9 @@ namespace WindowsInputControl
                     Data = new MouseKeybdHardwareInput()
                     {
                         Keyboard =
-                            new KeyboardInput
+                            new WindowsInputs.Keyboard.KeyboardInput
                             {
-                                virtualKey = 0,
+                                VirtualKey = 0,
                                 ScanCode = new ScanCode(scanCode),
                                 Flags = (KeyboardFlag.ScanCode | KeyboardFlag.KeyUp),
                                 Time = 0,
@@ -237,7 +237,7 @@ namespace WindowsInputControl
         ///     Adds a key press to the list of <see cref="Input" /> messages which is equivalent to a key down followed by a key
         ///     up.
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// .
         /// </param>
@@ -264,9 +264,9 @@ namespace WindowsInputControl
                 Data = new MouseKeybdHardwareInput()
                 {
                     Keyboard =
-                        new KeyboardInput
+                        new WindowsInputs.Keyboard.KeyboardInput
                         {
-                            virtualKey = 0,
+                            VirtualKey = 0,
                             ScanCode = new ScanCode(scanCode),
                             Flags = KeyboardFlag.Unicode,
                             Time = 0,
@@ -281,9 +281,9 @@ namespace WindowsInputControl
                 Data = new MouseKeybdHardwareInput()
                 {
                     Keyboard =
-                        new KeyboardInput
+                        new WindowsInputs.Keyboard.KeyboardInput
                         {
-                            virtualKey = 0,
+                            VirtualKey = 0,
                             ScanCode = new ScanCode(scanCode),
                             Flags =
                                 (KeyboardFlag.KeyUp | KeyboardFlag.Unicode),

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 using WindowsInputControl.NativeMethods;
 
-namespace WindowsInputControl.KeyboardLayouts
+namespace WindowsInputControl.Keyboards
 {
     /// <summary>
-    ///     Class WindowsKeyboardLayoutControl.
+    ///     Class WindowsKeyboardsControl.
     /// </summary>
-    public class WindowsKeyboardLayoutControl
+    public class WindowsKeyboardsControl : IWindowsKeyboardsControl
     {
         #region Private methods
 
@@ -35,9 +35,9 @@ namespace WindowsInputControl.KeyboardLayouts
 
         #region Methods
 
-        public IEnumerable<IKeyboardLayout> GetAllInstalledLayouts()
+        public IEnumerable<IKeyboard> GetAllInstalledLayouts()
         {
-            List<IKeyboardLayout> keyboards = new List<IKeyboardLayout>();
+            List<IKeyboard> keyboards = new List<IKeyboard>();
 
             int nElements = KeyboardsControl.GetKeyboardLayoutList(0, null);
             IntPtr[] ids = new IntPtr[nElements];
@@ -48,7 +48,7 @@ namespace WindowsInputControl.KeyboardLayouts
             {
                 string keybdIdentifier = GetLayoutIdentifier(keybdHandle);
 
-                IKeyboardLayout keybd = new WindowsKeyboardLayout(keybdHandle, keybdIdentifier);
+                IKeyboard keybd = new WindowsKeyboard(keybdHandle, keybdIdentifier);
 
                 keyboards.Add(keybd);
             }
@@ -57,7 +57,7 @@ namespace WindowsInputControl.KeyboardLayouts
         }
 
 
-        public IKeyboardLayout GetActiveLayout()
+        public IKeyboard GetActiveLayout()
         {
             //Find thread
             IntPtr fore = WindowInfo.GetForegroundWindow();
@@ -69,9 +69,9 @@ namespace WindowsInputControl.KeyboardLayouts
             string layoutIdentifier = GetLayoutIdentifier(layoutHandle);
 
 
-            IKeyboardLayout kbdLayout = new WindowsKeyboardLayout(layoutHandle, layoutIdentifier);
+            IKeyboard kbd = new WindowsKeyboard(layoutHandle, layoutIdentifier);
 
-            return kbdLayout;
+            return kbd;
         }
 
 
@@ -87,7 +87,7 @@ namespace WindowsInputControl.KeyboardLayouts
         }
 
 
-        public IntPtr GetActiveLayoutHandle()
+        private IntPtr GetActiveLayoutHandle()
         {
             IntPtr layout = KeyboardsControl.GetKeyboardLayout(0);
 

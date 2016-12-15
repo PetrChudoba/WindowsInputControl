@@ -5,7 +5,7 @@ using WindowsInputControl.WindowsInputs.Mouse;
 
 namespace WindowsInputControl.WindowsInputs
 {
-#pragma warning disable 649
+
     /// <summary>
     ///     The combined/overlayed structure that includes Mouse, Keyboard and Hardware Input message data (see:
     ///     http://msdn.microsoft.com/en-us/library/ms646270(VS.85).aspx)
@@ -19,14 +19,14 @@ namespace WindowsInputControl.WindowsInputs
         [FieldOffset(0)] public MouseInput Mouse;
 
         /// <summary>
-        ///     The <see cref="KeyboardInput" /> definition.
+        ///     The <see cref="WindowsInputs.Keyboard.KeyboardInput" /> definition.
         /// </summary>
-        [FieldOffset(0)] public KeyboardInput Keyboard;
+        [FieldOffset(0)] public Keyboard.KeyboardInput Keyboard;
 
         /// <summary>
         ///     The <see cref="HardwareInput" /> definition.
         /// </summary>
         [FieldOffset(0)] public HardwareInput Hardware;
     }
-#pragma warning restore 649
+
 }

@@ -2,7 +2,7 @@
 
 namespace WindowsInputControl.WindowsInputs
 {
-#pragma warning disable 649
+
 
     //https://msdn.microsoft.com/en-us/library/windows/desktop/ms646271(v=vs.85).aspx
 
@@ -36,5 +36,5 @@ namespace WindowsInputControl.WindowsInputs
         /// </summary>
         public MouseKeybdHardwareInput Data;
     }
-#pragma warning restore 649
+
 }

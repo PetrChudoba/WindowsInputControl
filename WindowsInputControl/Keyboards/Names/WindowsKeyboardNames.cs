@@ -1,10 +1,10 @@
-﻿namespace WindowsInputControl.KeyboardLayouts
+﻿namespace WindowsInputControl.Keyboards.Names
 {
     /// <summary>
-    /// Class WindowsKeyboardLayoutNames.
+    /// Class WindowsKeyboardNames.
     /// </summary>
-    /// <seealso cref="IWindowsKeyboardLayoutNames" />
-    internal class WindowsKeyboardLayoutNames : IWindowsKeyboardLayoutNames
+    /// <seealso cref="IWindowsKeyboardNames" />
+    internal class WindowsKeyboardNames : IWindowsKeyboardNames
     {
         /// <summary>
         /// Gets the name of the layout.

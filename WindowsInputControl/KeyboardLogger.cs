@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using WindowsInputControl.NativeMethods;
 using WindowsInputControl.WindowsHooks.Keyboard;
 using WindowsInputControl.WindowsInputs.Keyboard;
@@ -90,15 +91,17 @@ namespace WindowsInputControl.Hooks
         {
             _isReplaying = true;
 
-            KeyboardSimulator simik = new KeyboardSimulator(new InputSimulator());
+            KeyboardInput simik = new KeyboardInput();
 
             foreach (var evn in _events)
             {
                 ScanCode sc = new ScanCode((ushort) evn.ScanCode);
 
+               
 
-                simik.Send(evn.KeyAction, sc, evn.VirtualKey);
-                simik.Sleep(500);
+
+                simik.KeyAction(evn.VirtualKey, sc, evn.KeyAction);
+                Thread.Sleep(500);
             }
 
 

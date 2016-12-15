@@ -1,10 +1,10 @@
-﻿namespace WindowsInputControl.KeyboardLayouts
+﻿namespace WindowsInputControl.Keyboards.Names
 {
 
     /// <summary>
-    /// Interface IWindowsKeyboardLayoutNames is service for translating keyboard identifiers to  names.
+    /// Interface IWindowsKeyboardNames is service for translating keyboard identifiers to  names.
     /// </summary>
-    internal interface IWindowsKeyboardLayoutNames
+    internal interface IWindowsKeyboardNames
     {
 
         /// <summary>

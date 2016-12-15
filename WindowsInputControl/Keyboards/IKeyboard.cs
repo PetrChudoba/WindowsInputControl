@@ -1,13 +1,13 @@
 ﻿using WindowsInputControl.WindowsInputs.Keyboard;
 
-namespace WindowsInputControl.KeyboardLayouts
+namespace WindowsInputControl.Keyboards
 {
 
 
     /// <summary>
-    /// Interface IKeyboardLayout
+    /// Interface IKeyboard
     /// </summary>
-    public interface IKeyboardLayout
+    public interface IKeyboard
     {
         /// <summary>
         /// Gets the identifier.

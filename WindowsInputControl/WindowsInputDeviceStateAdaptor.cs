@@ -15,7 +15,7 @@ namespace WindowsInputControl
         ///     Determines whether the specified key is up or down by calling the GetKeyState function. (See:
         ///     http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>
@@ -52,7 +52,7 @@ namespace WindowsInputControl
         ///     Determines whether the specified key is up or downby calling the <see cref="NativeMethods.GetKeyState" /> function.
         ///     (See: http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>
@@ -90,7 +90,7 @@ namespace WindowsInputControl
         ///     <see cref="NativeMethods.GetAsyncKeyState" /> function. (See:
         ///     http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>
@@ -135,7 +135,7 @@ namespace WindowsInputControl
         ///     <see cref="NativeMethods.GetAsyncKeyState" /> function. (See:
         ///     http://msdn.microsoft.com/en-us/library/ms646293(VS.85).aspx)
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>
@@ -178,7 +178,7 @@ namespace WindowsInputControl
         ///     <see cref="NativeMethods.GetKeyState" /> function.  (See:
         ///     http://msdn.microsoft.com/en-us/library/ms646301(VS.85).aspx)
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>

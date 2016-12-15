@@ -4,13 +4,13 @@ using WindowsInputControl.Helpers;
 using WindowsInputControl.NativeMethods;
 using WindowsInputControl.WindowsInputs.Keyboard;
 
-namespace WindowsInputControl.KeyboardLayouts
+namespace WindowsInputControl.Keyboards
 {
     /// <summary>
-    /// Class WindowsKeyboardLayout.
+    /// Class WindowsKeyboard.
     /// </summary>
-    /// <seealso cref="WindowsInputControl.KeyboardLayouts.IKeyboardLayout" />
-    internal class WindowsKeyboardLayout : IKeyboardLayout
+    /// <seealso cref="IKeyboard" />
+    internal class WindowsKeyboard : IKeyboard
     {
 
         #region Fields
@@ -30,11 +30,11 @@ namespace WindowsInputControl.KeyboardLayouts
         #region Ctor
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WindowsKeyboardLayout"/> class.
+        /// Initializes a new instance of the <see cref="WindowsKeyboard"/> class.
         /// </summary>
         /// <param name="keyboardHandle">The keyboard handle.</param>
         /// <param name="keyboardIdentifier">The keyboard identifier.</param>
-        public WindowsKeyboardLayout(IntPtr keyboardHandle, string keyboardIdentifier)
+        public WindowsKeyboard(IntPtr keyboardHandle, string keyboardIdentifier)
         {
             Contract.Requires(keyboardHandle != null);
             Contract.Requires(!string.IsNullOrEmpty(keyboardIdentifier));
@@ -64,7 +64,7 @@ namespace WindowsInputControl.KeyboardLayouts
         /// <value>The name.</value>
         public string Name
         {
-            get { return ServiceLocator.WindowsKeyboardLayoutNames.GetLayoutName(_keyboardIdentifier); }
+            get { return ServiceLocator.WindowsKeyboardNames.GetLayoutName(_keyboardIdentifier); }
         }
 
         #endregion

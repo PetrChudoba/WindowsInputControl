@@ -12,7 +12,6 @@ namespace WindowsInputControl
     {
         private const int MouseWheelClickSize = 120;
 
-        private readonly IInputSimulator _inputSimulator;
 
         /// <summary>
         ///     The instance of the <see cref="IInputMessageDispatcher" /> to use for dispatching <see cref="Input" /> messages.
@@ -23,12 +22,9 @@ namespace WindowsInputControl
         ///     Initializes a new instance of the <see cref="MouseSimulator" /> class using an instance of a
         ///     <see cref="WindowsInputMessageDispatcher" /> for dispatching <see cref="Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator" /> that owns this instance.</param>
-        public MouseSimulator(IInputSimulator inputSimulator)
+        public MouseSimulator()
         {
-            if (inputSimulator == null) throw new ArgumentNullException("inputSimulator");
-
-            _inputSimulator = inputSimulator;
+            
             _messageDispatcher = new WindowsInputMessageDispatcher();
         }
 
@@ -36,16 +32,14 @@ namespace WindowsInputControl
         ///     Initializes a new instance of the <see cref="MouseSimulator" /> class using the specified
         ///     <see cref="IInputMessageDispatcher" /> for dispatching <see cref="Input" /> messages.
         /// </summary>
-        /// <param name="inputSimulator">The <see cref="IInputSimulator" /> that owns this instance.</param>
         /// <param name="messageDispatcher">
         ///     The <see cref="IInputMessageDispatcher" /> to use for dispatching <see cref="Input" />
         ///     messages.
         /// </param>
         /// <exception cref="InvalidOperationException">If null is passed as the <paramref name="messageDispatcher" />.</exception>
-        internal MouseSimulator(IInputSimulator inputSimulator, IInputMessageDispatcher messageDispatcher)
+        internal MouseSimulator(IInputMessageDispatcher messageDispatcher)
         {
-            if (inputSimulator == null)
-                throw new ArgumentNullException("inputSimulator");
+
 
             if (messageDispatcher == null)
                 throw new InvalidOperationException(
@@ -53,18 +47,10 @@ namespace WindowsInputControl
                         "The {0} cannot operate with a null {1}. Please provide a valid {1} instance to use for dispatching {2} messages.",
                         typeof(MouseSimulator).Name, typeof(IInputMessageDispatcher).Name, typeof(Input).Name));
 
-            _inputSimulator = inputSimulator;
             _messageDispatcher = messageDispatcher;
         }
 
-        /// <summary>
-        ///     Gets the <see cref="IKeyboardSimulator" /> instance for simulating Keyboard input.
-        /// </summary>
-        /// <value>The <see cref="IKeyboardSimulator" /> instance.</value>
-        public IKeyboardSimulator Keyboard
-        {
-            get { return _inputSimulator.Keyboard; }
-        }
+
 
         /// <summary>
         ///     Simulates mouse movement by the specified distance measured as a delta from the current mouse location in pixels.

@@ -28,7 +28,7 @@ namespace WindowsInputControl.WindowsInputs.Keyboard
         ///     macro definitions (VK_*) for each value. If the dwFlags member specifies KEYEVENTF_UNICODE, wVk must be 0.
         ///     mapped to WORD      wVk;
         /// </summary>
-        public VirtualKey virtualKey;
+        public VirtualKey VirtualKey;
 
         /// <summary>
         ///     Specifies a hardware scan code for the key. If dwFlags specifies KEYEVENTF_UNICODE, wScan specifies a Unicode
@@ -82,7 +82,7 @@ namespace WindowsInputControl.WindowsInputs.Keyboard
 
         public override string ToString()
         {
-            return $" Vk {virtualKey}, Sc {ScanCode}, flags {Flags} ";
+            return $" Vk {VirtualKey}, Sc {ScanCode}, flags {Flags} ";
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace WindowsInputControl.WindowsInputs.Mouse
 {
-#pragma warning disable 649
+
     /// <summary>
     ///     The MouseInput structure contains information about a simulated mouse event. (see:
     ///     http://msdn.microsoft.com/en-us/library/ms646273(VS.85).aspx)
@@ -84,5 +84,5 @@ namespace WindowsInputControl.WindowsInputs.Mouse
         /// </summary>
         public IntPtr ExtraInfo;
     }
-#pragma warning restore 649
+
 }

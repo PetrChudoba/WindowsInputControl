@@ -17,7 +17,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Determines whether the specified key is up or down.
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>
@@ -30,7 +30,7 @@ namespace WindowsInputControl
         ///     Determines whether the physical key is up or down at the time the function is called regardless of whether the
         ///     application thread has read the keyboard event from the message pump.
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>
@@ -43,7 +43,7 @@ namespace WindowsInputControl
         ///     Determines whether the physical key is up or down at the time the function is called regardless of whether the
         ///     application thread has read the keyboard event from the message pump.
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>
@@ -55,7 +55,7 @@ namespace WindowsInputControl
         /// <summary>
         ///     Determines whether the toggling key is toggled on (in-effect) or not.
         /// </summary>
-        /// <param name="virtualKeyhe 
+        /// <param name="virtualKey 
         /// <see cref="VirtualKey" />
         /// for the key.
         /// </param>

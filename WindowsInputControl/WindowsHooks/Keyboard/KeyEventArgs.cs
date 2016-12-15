@@ -10,10 +10,6 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
     [StructLayout(LayoutKind.Sequential)]
     public class KeyEventArgs
     {
-        public override string ToString()
-        {
-            return $"vk {VirtualKey}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
-        }
 
         #region Fields
 
@@ -51,6 +47,7 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
         public IntPtr DwExtraInfo;
 
         #endregion
+
 
         #region Properties
 
@@ -93,5 +90,16 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
         }
 
         #endregion
+
+
+        #region Methods
+
+        public override string ToString()
+        {
+            return $"vk {VirtualKey}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
+        }
+
+        #endregion
+
     }
 }

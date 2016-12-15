@@ -9,6 +9,6 @@ namespace WindowsInputControl.NativeMethods
         public static extern IntPtr GetForegroundWindow();
 
         [DllImport("user32.dll")]
-        public static extern int GetWindowThreadProcessId(IntPtr hWnd, IntPtr ProcessId);
+        public static extern int GetWindowThreadProcessId(IntPtr hWnd, IntPtr processId);
     }
 }
