@@ -79,7 +79,7 @@ namespace WindowsInputControl.KeyboardLayouts
         /// <returns>WindowsInputControl.WindowsInputs.Keyboard.VirtualKey.</returns>
         public VirtualKey GetVirtualKey(ScanCode scanCode)
         {
-            return (VirtualKey) NativeKeyboardLayout.MapVirtualKeyEx(scanCode.Code, 3, _keyboardHandle);
+            return (VirtualKey) KeyboardMapping.MapVirtualKeyEx(scanCode.Code, 3, _keyboardHandle);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace WindowsInputControl.KeyboardLayouts
         /// <returns>WindowsInputControl.WindowsInputs.Keyboard.ScanCode.</returns>
         public ScanCode GetScanCode(VirtualKey virtualKey)
         {
-            ushort scanCode = (ushort) NativeKeyboardLayout.MapVirtualKeyEx((int) virtualKey, 4, _keyboardHandle);
+            ushort scanCode = (ushort) KeyboardMapping.MapVirtualKeyEx((int) virtualKey, 4, _keyboardHandle);
             return new ScanCode(scanCode);
         }
 

@@ -15,17 +15,17 @@ namespace WindowsInputControl.KeyboardLayouts
         private string GetLayoutIdentifier(IntPtr keyboardHandle)
         {
             //Get current layout
-            IntPtr layout = NativeKeyboardLayoutControls.GetKeyboardLayout(0);
+            IntPtr layout = KeyboardsControl.GetKeyboardLayout(0);
 
 
-            NativeKeyboardLayoutControls.ActivateKeyboardLayout(keyboardHandle, 0x00000100);
+            KeyboardsControl.ActivateKeyboardLayout(keyboardHandle, 0x00000100);
 
-            var keyboardName = new StringBuilder(NativeKeyboardLayoutControls.KeyboardNameLength);
-            NativeKeyboardLayoutControls.GetKeyboardLayoutName(keyboardName);
+            var keyboardName = new StringBuilder(KeyboardsControl.KeyboardNameLength);
+            KeyboardsControl.GetKeyboardLayoutName(keyboardName);
 
 
             //Set back
-            NativeKeyboardLayoutControls.ActivateKeyboardLayout(layout, 0x00000100);
+            KeyboardsControl.ActivateKeyboardLayout(layout, 0x00000100);
 
 
             return keyboardName.ToString();
@@ -39,9 +39,9 @@ namespace WindowsInputControl.KeyboardLayouts
         {
             List<IKeyboardLayout> keyboards = new List<IKeyboardLayout>();
 
-            int nElements = NativeKeyboardLayoutControls.GetKeyboardLayoutList(0, null);
+            int nElements = KeyboardsControl.GetKeyboardLayoutList(0, null);
             IntPtr[] ids = new IntPtr[nElements];
-            NativeKeyboardLayoutControls.GetKeyboardLayoutList(ids.Length, ids);
+            KeyboardsControl.GetKeyboardLayoutList(ids.Length, ids);
 
 
             foreach (var keybdHandle in ids)
@@ -60,12 +60,12 @@ namespace WindowsInputControl.KeyboardLayouts
         public IKeyboardLayout GetActiveLayout()
         {
             //Find thread
-            IntPtr fore = NativeWindowInfo.GetForegroundWindow();
-            int tpid = NativeWindowInfo.GetWindowThreadProcessId(fore, IntPtr.Zero);
+            IntPtr fore = WindowInfo.GetForegroundWindow();
+            int tpid = WindowInfo.GetWindowThreadProcessId(fore, IntPtr.Zero);
 
 
             //Get handle and identifier for active layout
-            IntPtr layoutHandle = NativeKeyboardLayoutControls.GetKeyboardLayout(tpid);
+            IntPtr layoutHandle = KeyboardsControl.GetKeyboardLayout(tpid);
             string layoutIdentifier = GetLayoutIdentifier(layoutHandle);
 
 
@@ -80,8 +80,8 @@ namespace WindowsInputControl.KeyboardLayouts
         /// <returns></returns>
         public string GetActiveLayoutIdentifier()
         {
-            var keyboardName = new StringBuilder(NativeKeyboardLayoutControls.KeyboardNameLength);
-            NativeKeyboardLayoutControls.GetKeyboardLayoutName(keyboardName);
+            var keyboardName = new StringBuilder(KeyboardsControl.KeyboardNameLength);
+            KeyboardsControl.GetKeyboardLayoutName(keyboardName);
 
             return keyboardName.ToString();
         }
@@ -89,7 +89,7 @@ namespace WindowsInputControl.KeyboardLayouts
 
         public IntPtr GetActiveLayoutHandle()
         {
-            IntPtr layout = NativeKeyboardLayoutControls.GetKeyboardLayout(0);
+            IntPtr layout = KeyboardsControl.GetKeyboardLayout(0);
 
             return layout;
         }

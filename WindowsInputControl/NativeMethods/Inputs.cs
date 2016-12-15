@@ -8,7 +8,7 @@ using WindowsInputControl.WindowsInputs;
 
 namespace WindowsInputControl.NativeMethods
 {
-    internal static class NativeInputs
+    internal static class Inputs
     {
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint SendInput(uint numberOfInputs, Input[] inputs, int sizeOfInputStructure);

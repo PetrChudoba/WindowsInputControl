@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WindowsInputControl.NativeMethods
 {
-    internal static class NativeKeyboardLayoutControls
+    internal static class KeyboardsControl
     {
         public const int KeyboardNameLength = 8;
 

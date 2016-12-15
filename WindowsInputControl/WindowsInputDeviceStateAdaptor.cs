@@ -44,7 +44,7 @@ namespace WindowsInputControl
         /// </remarks>
         public bool IsKeyDown(VirtualKey virtualKey)
         {
-            short result = NativeKeyStateControls.GetKeyState((ushort) virtualKey);
+            short result = KeyStateInfo.GetKeyState((ushort) virtualKey);
             return (result < 0);
         }
 
@@ -125,7 +125,7 @@ namespace WindowsInputControl
         /// </remarks>
         public bool IsHardwareKeyDown(VirtualKey virtualKey)
         {
-            var result = NativeKeyStateControls.GetAsyncKeyState((ushort) virtualKey);
+            var result = KeyStateInfo.GetAsyncKeyState((ushort) virtualKey);
             return (result < 0);
         }
 
@@ -207,7 +207,7 @@ namespace WindowsInputControl
         /// </remarks>
         public bool IsTogglingKeyInEffect(VirtualKey virtualKey)
         {
-            short result = NativeKeyStateControls.GetKeyState((ushort) virtualKey);
+            short result = KeyStateInfo.GetKeyState((ushort) virtualKey);
             return (result & 0x01) == 0x01;
         }
     }

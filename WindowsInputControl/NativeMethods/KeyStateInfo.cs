@@ -2,7 +2,7 @@ using System.Runtime.InteropServices;
 
 namespace WindowsInputControl.NativeMethods
 {
-    internal  static class NativeKeyStateControls
+    internal  static class KeyStateInfo
     { 
 
 

@@ -5,7 +5,7 @@ using WindowsInputControl.WindowsHooks.Keyboard;
 
 namespace WindowsInputControl.NativeMethods
 {
-    internal static class NativeKeyboardHooks
+    internal static class KeyboardHooks
     {
         [DllImport("user32.dll")]
         public static extern IntPtr SetWindowsHookEx(int idHook, KeyboardHookHandlerDelegate lpfn, IntPtr hMod, uint dwThreadId);

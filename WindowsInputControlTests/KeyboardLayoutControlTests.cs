@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WindowsInputControl.KeyboardLayouts;
+using WindowsInputControl.Keyboards;
 
 namespace WindowsInputControl.Hooks.Tests
 {
@@ -20,7 +20,7 @@ namespace WindowsInputControl.Hooks.Tests
             //arrange
             var inputLanguages = InputLanguage.InstalledInputLanguages;
 
-            WindowsKeyboardLayoutControl klc = new WindowsKeyboardLayoutControl();
+            WindowsKeyboardsControl klc = new WindowsKeyboardsControl();
 
 
 
