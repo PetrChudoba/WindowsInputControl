@@ -52,7 +52,8 @@ namespace WindowsInputControl
                     {
                         VirtualKey = 0,
                         ScanCode = scanCode,
-                        Flags = (action == KeyAction.Up ? KeyboardFlag.KeyUp : 0) |
+                        Flags = KeyboardFlag.ScanCode |
+                                (action == KeyAction.Up ? KeyboardFlag.KeyUp : 0) |
                                 (scanCode.IsExtended ? KeyboardFlag.ExtendedKey : 0)
                     }
                 }
@@ -71,7 +72,8 @@ namespace WindowsInputControl
                     {
                         VirtualKey = 0,
                         ScanCode = new ScanCode(unicodeCharacter),
-                        Flags = (action == KeyAction.Up ? KeyboardFlag.KeyUp : 0)  //Do not set Extended key                    
+                        Flags =  KeyboardFlag.Unicode |
+                                (action == KeyAction.Up ? KeyboardFlag.KeyUp : 0)  //Do not set Extended key                    
                     }
                 }
             };
