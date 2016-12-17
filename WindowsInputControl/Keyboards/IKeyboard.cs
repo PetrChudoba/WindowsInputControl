@@ -31,7 +31,7 @@ namespace WindowsInputControl.Keyboards
         VirtualKey GetVirtualKey(ScanCode scanCode);
 
         /// <summary>
-        /// Gets the scan code for the virtal key.
+        /// Gets the scan code for the virtual key.
         /// </summary>
         /// <param name="virtualKey">The virtual key.</param>
         /// <returns>WindowsInputControl.WindowsInputs.Keyboard.ScanCode.</returns>

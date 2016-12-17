@@ -15,5 +15,23 @@
         
         <Rectangle Height="23" Fill="BlueViolet"></Rectangle>
         <Button Click="ButtonBase_OnClick2"> Replay</Button>
+
+        <Grid DataContext="{Binding Logger}" >
+            <StackPanel>
+                <ScrollViewer>
+                    <ItemsControl ItemsSource="{Binding Events}"></ItemsControl>
+                </ScrollViewer>
+                
+                <TextBlock Text="{Binding Count}"></TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding StartRecording}">Start Recording</Button>
+                    <Button Command="{Binding StopRecording}">Stop Recording</Button>
+                    
+                </StackPanel>
+            </StackPanel>
+            
+            
+        </Grid>
+        
     </StackPanel>
 </Window>

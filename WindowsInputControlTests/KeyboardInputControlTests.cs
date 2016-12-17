@@ -87,16 +87,21 @@ namespace WindowsInputControl.Tests
 
         }
 
+
         [TestMethod()]
         public void SendTest2()
         {
-            Assert.Fail();
+            KeyboardInputControl kbd = new KeyboardInputControl();
+
+            kbd.Send(VirtualKey.MEDIA_PLAY_PAUSE);
         }
 
         [TestMethod()]
         public void SendTest3()
         {
-            Assert.Fail();
+            KeyboardInputControl kbd = new KeyboardInputControl();
+            
+            kbd.Send(new ScanCode(34,true));
         }
 
         [TestMethod()]

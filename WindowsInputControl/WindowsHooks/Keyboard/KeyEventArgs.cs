@@ -17,13 +17,13 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
         ///     The virtual key code
         ///     DWORD vkCode;
         /// </summary>
-        public uint virtualKey;
+        private uint _virtualKey;
 
         /// <summary>
         ///     The scan code
         ///     DWORD scanCode;
         /// </summary>
-        public uint ScanCode;
+        private uint _sccanCode;
 
 
         /// <summary>
@@ -53,10 +53,19 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
 
         public VirtualKey VirtualKey
         {
-            get { return (VirtualKey) virtualKey; }
+            get { return (VirtualKey) _virtualKey; }
+        }
+        
+
+        public ScanCode ScanCode
+        {
+            get
+            {
+                return new ScanCode((byte) _sccanCode, IsExtended);
+            }
         }
 
-
+    
         public bool IsExtended
         {
             get { return IsBitSet(Flags, 0); }
@@ -78,6 +87,20 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
             get { return !IsUpEvent; }
         }
 
+        public KeyEventType Type
+        {
+            get
+            {
+                if (IsAltPressed)
+                {
+                    return IsDownEvent ? KeyEventType.WM_SYSKEYDOWN : KeyEventType.WM_SYSKEYUP;
+                }
+
+                return IsDownEvent ? KeyEventType.WM_KEYDOWN : KeyEventType.WM_KEYUP;
+            }
+        }
+
+
         public KeyAction KeyAction
         {
             get { return IsUpEvent ? KeyAction.Up : KeyAction.Down; }
@@ -89,6 +112,8 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
             return (b & (1 << pos)) != 0;
         }
 
+        
+
         #endregion
 
 
@@ -96,7 +121,9 @@ namespace WindowsInputControl.WindowsHooks.Keyboard
 
         public override string ToString()
         {
-            return $"vk {VirtualKey}, sc {ScanCode} , IsUp {IsUpEvent}, Is Extended{IsExtended}, IsAlt {IsAltPressed}";
+
+
+            return (IsUpEvent?"UP":"DOWN") + $" {VirtualKey} x {ScanCode.Code} + {IsExtended}";
         }
 
         #endregion

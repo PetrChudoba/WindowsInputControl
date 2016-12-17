@@ -11,26 +11,36 @@ namespace WindowsInputControl.WindowsInputs.Keyboard
     {
         private const ushort ExtendedFlag = 0xE000;
 
-        public ushort Code;
+        private ushort _fullCode;
 
-        public ScanCode(ushort code)
+        public ScanCode(ushort fullCode)
         {
-            Code = code;
+            _fullCode = fullCode;
         }
 
 
         public ScanCode(byte code, bool isExtended)
         {
-            Code = code;
+            _fullCode = code;
 
             if (isExtended)
-                Code |= ExtendedFlag;
+                _fullCode |= ExtendedFlag;
         }
 
 
+        public byte Code
+        {
+            get { return (byte) _fullCode; }
+        }
+
+        public ushort FullCode
+        {
+            get { return _fullCode; }
+        }
+
         public bool IsExtended
         {
-            get { return (Code & 0xFF00) == ExtendedFlag; }
+            get { return (_fullCode & 0xFF00) == ExtendedFlag; }
         }
     }
 }

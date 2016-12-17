@@ -79,7 +79,7 @@ namespace WindowsInputControl.Keyboards
         /// <returns>WindowsInputControl.WindowsInputs.Keyboard.VirtualKey.</returns>
         public VirtualKey GetVirtualKey(ScanCode scanCode)
         {
-            return (VirtualKey) KeyboardMapping.MapVirtualKeyEx(scanCode.Code, 3, _keyboardHandle);
+            return (VirtualKey) KeyboardMapping.MapVirtualKeyEx(scanCode.FullCode, 3, _keyboardHandle);
         }
 
         /// <summary>

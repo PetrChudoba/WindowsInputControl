@@ -46,7 +46,7 @@ namespace WindowsInputControl.NativeMethods
         ///     gives the state of the SHIFT, CTRL, or ALT keys without distinguishing between left and right.
         ///     Windows NT/2000/XP: You can use the following virtual-key code constants as values for vKey to distinguish between
         ///     the left and right instances of those keys.
-        ///     Code Meaning
+        ///     FullCode Meaning
         ///     VK_LSHIFT Left-shift key.
         ///     VK_RSHIFT Right-shift key.
         ///     VK_LCONTROL Left-control key.

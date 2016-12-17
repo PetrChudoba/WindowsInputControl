@@ -6,32 +6,11 @@ using WindowsInputControl.NativeMethods;
 namespace WindowsInputControl.Keyboards
 {
     /// <summary>
-    ///     Class WindowsKeyboardsControl.
+    /// Class WindowsKeyboardsControl.
     /// </summary>
+    /// <seealso cref="WindowsInputControl.Keyboards.IWindowsKeyboardsControl" />
     public class WindowsKeyboardsControl : IWindowsKeyboardsControl
     {
-        #region Private methods
-
-        private string GetLayoutIdentifier(IntPtr keyboardHandle)
-        {
-            //Get current layout
-            IntPtr layout = KeyboardsControl.GetKeyboardLayout(0);
-
-
-            KeyboardsControl.ActivateKeyboardLayout(keyboardHandle, 0x00000100);
-
-            var keyboardName = new StringBuilder(KeyboardsControl.KeyboardNameLength);
-            KeyboardsControl.GetKeyboardLayoutName(keyboardName);
-
-
-            //Set back
-            KeyboardsControl.ActivateKeyboardLayout(layout, 0x00000100);
-
-
-            return keyboardName.ToString();
-        }
-
-        #endregion
 
         #region Methods
 
@@ -86,6 +65,19 @@ namespace WindowsInputControl.Keyboards
             return keyboardName.ToString();
         }
 
+        public void ActivateLayout(string identifier)
+        {
+
+            //TODO: Check flags
+            IntPtr handle = KeyboardsControl.LoadKeyboardLayout(identifier, 0);
+
+            //TODO: Check flags
+            KeyboardsControl.ActivateKeyboardLayout(handle, 0);
+
+
+
+        }
+
 
         private IntPtr GetActiveLayoutHandle()
         {
@@ -95,5 +87,30 @@ namespace WindowsInputControl.Keyboards
         }
 
         #endregion
+
+
+        #region Private methods
+
+        private string GetLayoutIdentifier(IntPtr keyboardHandle)
+        {
+            //Get current layout
+            IntPtr layout = KeyboardsControl.GetKeyboardLayout(0);
+
+
+            KeyboardsControl.ActivateKeyboardLayout(keyboardHandle, 0x00000100);
+
+            var keyboardName = new StringBuilder(KeyboardsControl.KeyboardNameLength);
+            KeyboardsControl.GetKeyboardLayoutName(keyboardName);
+
+
+            //Set back
+            KeyboardsControl.ActivateKeyboardLayout(layout, 0x00000100);
+
+
+            return keyboardName.ToString();
+        }
+
+        #endregion
+
     }
 }

@@ -40,13 +40,13 @@ namespace WindowsInputControl.Tests
 
             sim.KeyAction(new ScanCode(45),KeyAction.Down);
 
-            firstKey = logger.LastKey;
+            firstKey = logger.LastKeyEvent;
 
 
             sim.KeyAction(new ScanCode(45), KeyAction.Down, layout);
 
 
-            secondKey = logger.LastKey;
+            secondKey = logger.LastKeyEvent;
 
 
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace WindowsInputLogger
         private KeyboardInputControl _kbdInputControl;
 
         private List<string> _events;
+        private readonly LogerVm _logger;
 
         public MainWindowsVm()
         {
@@ -22,6 +24,7 @@ namespace WindowsInputLogger
             logger.SetHook();
 
             _kbdInputControl = new KeyboardInputControl();
+            _logger = new LogerVm();
         }
 
         public ushort ScanCode { get; set;  }
@@ -34,7 +37,9 @@ namespace WindowsInputLogger
         public void Send()
         {
 
-            _kbdInputControl.KeyPress((VirtualKey) VirtualKey, new ScanCode(ScanCode));
+          //  _kbdInputControl.KeyPress((VirtualKey) VirtualKey, new ScanCode(ScanCode));
+
+            _kbdInputControl.Send(new ScanCode(34, true));
         }
 
 
@@ -57,7 +62,20 @@ namespace WindowsInputLogger
 
         public void Replay()
         {
-            logger.Replay();
+           // logger.Replay();
+        }
+
+
+        public LogerVm Logger
+        {
+            get { return _logger; }
         }
     }
+
+
+
+
+
+
+
 }

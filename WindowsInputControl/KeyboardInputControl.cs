@@ -185,7 +185,7 @@ namespace WindowsInputControl
 
         private VirtualKey getVirtualKey(ScanCode scanCode)
         {
-            return (VirtualKey)KeyboardMapping.MapVirtualKeyEx(scanCode.Code, 3, IntPtr.Zero);
+            return (VirtualKey)KeyboardMapping.MapVirtualKeyEx(scanCode.FullCode, 3, IntPtr.Zero);
 
         }
 

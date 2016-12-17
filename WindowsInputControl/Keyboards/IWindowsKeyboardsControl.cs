@@ -1,15 +1,45 @@
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 
 namespace WindowsInputControl.Keyboards
 {
+
+    [ContractClass(typeof(WindowsKeyboardscontrolContract))]
     public interface IWindowsKeyboardsControl
     {
-        IEnumerable<IKeyboard> GetAllInstalledLayouts();
+
         IKeyboard GetActiveLayout();
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        string GetActiveLayoutIdentifier();
+
+        IEnumerable<IKeyboard> GetAllInstalledLayouts();
+
+
+        void ActivateLayout(string identifier);
+
+        
+    }
+
+
+    [ContractClassFor(typeof(IWindowsKeyboardsControl))]
+    internal abstract class WindowsKeyboardscontrolContract : IWindowsKeyboardsControl
+    {
+        
+
+        public IKeyboard GetActiveLayout()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public IEnumerable<IKeyboard> GetAllInstalledLayouts()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
+        public void ActivateLayout(string identifier)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

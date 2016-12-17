@@ -2,7 +2,7 @@
 {
     /// <summary>
     /// </summary>
-    internal enum KeyEventType
+    public enum KeyEventType
     {
         /// <summary>
         ///     Key down
