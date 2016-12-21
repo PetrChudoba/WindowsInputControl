@@ -87,11 +87,11 @@
   <ItemGroup>
     <Compile Include="Helpers\ServiceLocator.cs" />
     <Compile Include="Helpers\UintBitOperations.cs" />
-    <Compile Include="IKeyboardInputSimulator.cs" />
-    <Compile Include="IMouseInputControl.cs" />
-    <Compile Include="InputBuilder.cs" />
+    <Compile Include="WindowsInputs\Keyboard\IKeyboardInputSimulator.cs" />
+    <Compile Include="WindowsInputs\Mouse\IMouseInputControl.cs" />
+    <Compile Include="WindowsInputs\Mouse\MouseInputBuilder.cs" />
     <Compile Include="WindowsInputs\Keyboard\KeyAction.cs" />
-    <Compile Include="KeyboardInputBuilder.cs" />
+    <Compile Include="WindowsInputs\Keyboard\KeyboardInputBuilder.cs" />
     <Compile Include="Keyboards\IKeyboard.cs" />
     <Compile Include="Keyboards\IWindowsKeyboardsControl.cs" />
     <Compile Include="NativeMethods\Inputs.cs" />
@@ -102,17 +102,17 @@
     <Compile Include="WindowsHooks\Keyboard\KeyEventArgs.cs" />
     <Compile Include="NativeMethods\KeyboardHooks.cs" />
     <Compile Include="Keyboards\WindowsKeyboardsControl.cs" />
-    <Compile Include="KeyboardLogger.cs" />
+    <Compile Include="WindowsHooks\Keyboard\KeyboardLogger.cs" />
     <Compile Include="Keyboards\Names\WindowsKeyboardNames.cs" />
     <Compile Include="WindowsHooks\Keyboard\KeyEventType.cs" />
     <Compile Include="NativeMethods\KeyboardMapping.cs" />
     <Compile Include="NativeMethods\WindowInfo.cs" />
     <Compile Include="IInputDeviceStateAdaptor.cs" />
-    <Compile Include="IInputMessageDispatcher.cs" />
-    <Compile Include="IKeyboardInputControl.cs" />
-    <Compile Include="KeyboardInputControl.cs" />
+    <Compile Include="WindowsInputs\IInputMessageDispatcher.cs" />
+    <Compile Include="WindowsInputs\Keyboard\IKeyboardInputControl.cs" />
+    <Compile Include="WindowsInputs\Keyboard\KeyboardInputControl.cs" />
     <Compile Include="WindowsInputs\Mouse\MouseButton.cs" />
-    <Compile Include="MouseInputControl.cs" />
+    <Compile Include="WindowsInputs\Mouse\MouseInputControl.cs" />
     <Compile Include="WindowsInputs\Hardware\HardwareInput.cs" />
     <Compile Include="WindowsInputs\Input.cs" />
     <Compile Include="WindowsInputs\InputType.cs" />
@@ -127,7 +127,7 @@
     <Compile Include="WindowsInputs\Mouse\XButton.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsInputDeviceStateAdaptor.cs" />
-    <Compile Include="WindowsInputMessageDispatcher.cs" />
+    <Compile Include="WindowsInputs\WindowsInputMessageDispatcher.cs" />
     <Compile Include="Keyboards\WindowsKeyboard.cs" />
   </ItemGroup>
   <ItemGroup />
