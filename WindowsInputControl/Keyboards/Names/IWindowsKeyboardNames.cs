@@ -8,7 +8,7 @@
     {
 
         /// <summary>
-        /// Gets the friendly name of the layout.
+        /// Gets the name of the layout.
         /// </summary>
         /// <param name="identifier">The identifier.</param>
         /// <returns>System.String.</returns>

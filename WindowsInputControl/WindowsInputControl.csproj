@@ -88,6 +88,7 @@
     <Compile Include="Helpers\ServiceLocator.cs" />
     <Compile Include="Helpers\UintBitOperations.cs" />
     <Compile Include="IKeyboardInputSimulator.cs" />
+    <Compile Include="IMouseInputControl.cs" />
     <Compile Include="InputBuilder.cs" />
     <Compile Include="WindowsInputs\Keyboard\KeyAction.cs" />
     <Compile Include="KeyboardInputBuilder.cs" />
@@ -109,7 +110,6 @@
     <Compile Include="IInputDeviceStateAdaptor.cs" />
     <Compile Include="IInputMessageDispatcher.cs" />
     <Compile Include="IKeyboardInputControl.cs" />
-    <Compile Include="IMouseInputControl.cs" />
     <Compile Include="KeyboardInputControl.cs" />
     <Compile Include="WindowsInputs\Mouse\MouseButton.cs" />
     <Compile Include="MouseInputControl.cs" />
@@ -120,6 +120,7 @@
     <Compile Include="WindowsInputs\Keyboard\KeyboardFlag.cs" />
     <Compile Include="WindowsInputs\Keyboard\ScanCode.cs" />
     <Compile Include="WindowsInputs\Mouse\MouseFlag.cs" />
+    <Compile Include="WindowsInputs\Mouse\MouseFlagHelpers.cs" />
     <Compile Include="WindowsInputs\Mouse\MouseInput.cs" />
     <Compile Include="WindowsInputs\MouseKeybdHardwareInput.cs" />
     <Compile Include="WindowsInputs\Keyboard\VirtualKey.cs" />
